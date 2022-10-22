@@ -1,0 +1,21 @@
+.profile__subline {
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  grid-area: subline;
+}
+
+@media screen and (max-width: 1040px) {
+  .profile__subline {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile__subline {
+    text-align: center;
+  }
+}
