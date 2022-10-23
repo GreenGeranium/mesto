@@ -11,3 +11,7 @@
   background-repeat: no-repeat;
   cursor: pointer;
 }
+
+.elements__button:hover {
+  opacity: 0.5;
+}

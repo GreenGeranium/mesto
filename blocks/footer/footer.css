@@ -1,3 +1,12 @@
 .footer {
-  
+  min-height: 145px;
+  padding: 0 200px;
+  display: flex;
+}
+
+@media screen and (max-width: 767px) {
+  .footer {
+    padding: 0 19px;
+    min-height: 98px;
+  }
 }
