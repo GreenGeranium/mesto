@@ -36,3 +36,6 @@ closeBtn.addEventListener('click', closePopup);
 formElement.addEventListener('submit', formSubmitHandler);
 formElement.addEventListener('click', formSubmitHandler);
 formElement.addEventListener('click', closePopup);
+
+//При открытом попапе нажатие на клавишу “Enter” или кнопку «Сохранить» изменяет на странице информацию
+//о пользователе.
