@@ -6,6 +6,7 @@ const nameInput = document.querySelector('.popup__text_name');
 const jobInput = document.querySelector('.popup__text_profession');
 const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__subline');
+const likeBtn = document.querySelectorAll('.elements__button');
 
 function openPopup() {
   popup.classList.add('popup_opened');
@@ -19,6 +20,12 @@ function formSubmitHandler(evt) {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
+}
+
+for (let i = 0; i < likeBtn.length; i++) {
+  likeBtn[i].addEventListener('click', function () {
+    likeBtn[i].classList.toggle('elements__button_active');
+  });
 }
 
 nameInput.value = nameProfile.textContent;

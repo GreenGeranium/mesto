@@ -1,0 +1,4 @@
+.elements__button_active {
+  background-image: url(../../../../images/heart_active.svg);
+  transition: 0.5s;
+}
