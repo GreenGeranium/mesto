@@ -4,8 +4,8 @@
   font-weight: 500;
   font-size: 42px;
   line-height: 48px;
-  grid-area: name;
-  white-space: nowrap;
+  color: #FFFFFF;
+  align-self: flex-end;
 }
 
 @media screen and (max-width: 1040px) {

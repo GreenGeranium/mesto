@@ -5,6 +5,8 @@
   font-size: 18px;
   line-height: 22px;
   grid-area: subline;
+  color: #FFFFFF;
+  align-self: flex-start;
 }
 
 @media screen and (max-width: 1040px) {
@@ -14,7 +16,7 @@
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 930px) {
   .profile__subline {
     text-align: center;
   }
