@@ -7,6 +7,9 @@
   grid-area: subline;
   color: #FFFFFF;
   align-self: flex-start;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 1040px) {
