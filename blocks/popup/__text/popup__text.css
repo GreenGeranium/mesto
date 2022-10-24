@@ -1,0 +1,16 @@
+.popup__text {
+  border: 0;
+  height: 27px;
+  padding: 0;
+  width: 100%;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  padding-bottom: 13px;
+  box-sizing: border-box;
+  outline: none;
+  border-bottom: 1px solid rgb(0,0,0, 0.2);
+}
+
