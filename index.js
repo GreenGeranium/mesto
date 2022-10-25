@@ -35,7 +35,11 @@ editBtn.addEventListener('click', openPopup);
 closeBtn.addEventListener('click', closePopup);
 formElement.addEventListener('submit', formSubmitHandler);
 formElement.addEventListener('click', formSubmitHandler);
-formElement.addEventListener('click', closePopup);
+document.addEventListener('keypress', function (evt) {
+  if (evt.key === 'Enter') {
+    formSubmitHandler(evt)
+    closePopup()
+  }
+})
 
-//При открытом попапе нажатие на клавишу “Enter” или кнопку «Сохранить» изменяет на странице информацию
-//о пользователе.
+formElement.addEventListener('click', closePopup);
