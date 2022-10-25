@@ -9,7 +9,7 @@
   height: 32px;
   cursor: pointer;
   left: calc(430px + 8px);
-  bottom: calc(330px + 8px)
+  bottom: calc(330px + 8px);
 }
 
 .popup__close-button:hover {
@@ -21,6 +21,6 @@
     width: 20px;
     height: 20px;
     left: calc(282px - 20px);
-    bottom: calc(322px + 16px)
+    bottom: calc(322px + 16px);
   }
 }

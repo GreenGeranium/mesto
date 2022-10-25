@@ -37,8 +37,8 @@ formElement.addEventListener('submit', formSubmitHandler);
 formElement.addEventListener('click', formSubmitHandler);
 document.addEventListener('keypress', function (evt) {
   if (evt.key === 'Enter') {
-    formSubmitHandler(evt)
-    closePopup()
+    formSubmitHandler(evt);
+    closePopup();
   }
 })
 
