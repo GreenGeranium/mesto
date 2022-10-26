@@ -11,3 +11,9 @@
     column-gap: 10px;
   }
 }
+
+@media screen and (max-width: 930px) {
+  .profile__description {
+    margin-left: 28px;
+  }
+}

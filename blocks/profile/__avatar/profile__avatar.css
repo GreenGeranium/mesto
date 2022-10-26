@@ -8,7 +8,7 @@
 
 @media screen and (max-width: 930px) {
   .profile__avatar {
-    margin: 0;
+    margin: 0 0 26px;
     align-self: flex-start;
   }
 }

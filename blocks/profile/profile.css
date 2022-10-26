@@ -9,12 +9,6 @@
   grid-template-columns: min-content 1fr min-content;
 }
 
-@media screen and (max-width: 1040px) {
-  .profile {
-    grid-template-columns: 150px 200px auto;
-  }
-}
-
 @media screen and (max-width: 930px) {
   .profile {
     padding: 42px 19px 0;
@@ -24,7 +18,6 @@
     "subline"
     "add";
     grid-template-columns: auto;
-    grid-template-rows: 146px auto auto 86px;
     row-gap: 0;
     justify-items: center;
   }
