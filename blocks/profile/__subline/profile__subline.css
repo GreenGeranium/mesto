@@ -10,12 +10,15 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  max-width: 336px;
+  width: 100%;
 }
 
 @media screen and (max-width: 1040px) {
   .profile__subline {
     font-size: 14px;
     line-height: 17px;
+    max-width: 282px;
   }
 }
 

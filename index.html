@@ -12,69 +12,71 @@
 <body class="root">
   <div class="page">
     <div class="popup">
-      <div class="popup__container">
-        <button class="popup__close-button"></button>
+      <form class="popup__container" action="" method="get" name="profile-edit">
+        <button class="popup__close-button" type="button" aria-label="Закрыть попап"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" value="" class="popup__text popup__text_name">
-        <input type="text" value="" class="popup__text popup__text_profession">
+        <div class="popup__inputs">
+          <input type="text" value="" class="popup__text popup__text_input_name" name="profile-name">
+          <input type="text" value="" class="popup__text popup__text_input_profession" name="profile-profession">
+        </div>
         <button class="popup__save-button" type="submit">Сохранить</button>
-      </div>
+      </form>
     </div>
     <header class="header">
-      <img src="./images/logo.svg" alt="Логотип проекта Место Россия" class="logo logo_header">
+      <img src="./images/logo.svg" alt="Логотип проекта Место Россия" class="logo">
     </header>
     <main class="content">
       <section class="profile">
         <img src="./images/profile__image.jpg" alt="Аватарка Жак-Ив Кусто" class="profile__avatar">
         <div class="profile__description">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button"></button>
+          <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
         </div>
         <p class="profile__subline">Исследователь океана</p>
-        <button class="profile__add-button"></button>
+        <button class="profile__add-button" type="button" aria-label="Добавить фотографию"></button>
       </section>
       <section class="elements">
         <ul class="elements__list">
-          <li class="elements__item">
-            <img src="./images/moscow.jpg" alt="Московский Кремль" class="elements__image">
-            <div class="elements__description">
-              <h2 class="elements__name">Москва</h2>
-              <button class="elements__button"></button>
+          <li class="card">
+            <img src="./images/moscow.jpg" alt="Московский Кремль" class="card__image">
+            <div class="card__description">
+              <h2 class="card__name">Москва</h2>
+              <button class="card__button" type="button" aria-label="Лайк"></button>
             </div>
           </li>
-          <li class="elements__item">
-            <img src="./images/ivanovo.jpg" alt="Поезд Иваноского вокзала на фоне церкви" class="elements__image">
-            <div class="elements__description">
-              <h2 class="elements__name">Иваново</h2>
-              <button class="elements__button"></button>
+          <li class="card">
+            <img src="./images/ivanovo.jpg" alt="Поезд Иваноского вокзала на фоне церкви" class="card__image">
+            <div class="card__description">
+              <h2 class="card__name">Иваново</h2>
+              <button class="card__button" type="button" aria-label="Лайк"></button>
             </div>
           </li>
-          <li class="elements__item">
-            <img src="./images/suzdal.jpg" alt="Церковь Илии Пророка" class="elements__image">
-            <div class="elements__description">
-              <h2 class="elements__name">Суздаль</h2>
-              <button class="elements__button"></button>
+          <li class="card">
+            <img src="./images/suzdal.jpg" alt="Церковь Илии Пророка" class="card__image">
+            <div class="card__description">
+              <h2 class="card__name">Суздаль</h2>
+              <button class="card__button" type="button" aria-label="Лайк"></button>
             </div>
           </li>
-          <li class="elements__item">
-            <img src="./images/Город_Йошкар-Ола_Марий_Эл_8.jpg" alt="Благовещенский собор" class="elements__image">
-            <div class="elements__description">
-              <h2 class="elements__name">Йошкар-Ола</h2>
-              <button class="elements__button"></button>
+          <li class="card">
+            <img src="./images/Город_Йошкар-Ола_Марий_Эл_8.jpg" alt="Благовещенский собор" class="card__image">
+            <div class="card__description">
+              <h2 class="card__name">Йошкар-Ола</h2>
+              <button class="card__button" type="button" aria-label="Лайк"></button>
             </div>
           </li>
-          <li class="elements__item">
-            <img src="./images/Мечеть_Кул_Шариф_02,_2009.jpg" alt="Мечеть Кул-Шариф" class="elements__image">
-            <div class="elements__description">
-              <h2 class="elements__name">Казань</h2>
-              <button class="elements__button"></button>
+          <li class="card">
+            <img src="./images/Мечеть_Кул_Шариф_02,_2009.jpg" alt="Мечеть Кул-Шариф" class="card__image">
+            <div class="card__description">
+              <h2 class="card__name">Казань</h2>
+              <button class="card__button" type="button" aria-label="Лайк"></button>
             </div>
           </li>
-          <li class="elements__item">
-            <img src="./images/kostroma.jpg" alt="Костромская церковь" class="elements__image">
-            <div class="elements__description">
-              <h2 class="elements__name">Кострома</h2>
-              <button class="elements__button"></button>
+          <li class="card">
+            <img src="./images/kostroma.jpg" alt="Костромская церковь" class="card__image">
+            <div class="card__description">
+              <h2 class="card__name">Кострома</h2>
+              <button class="card__button" type="button" aria-label="Лайк"></button>
             </div>
           </li>
         </ul>
@@ -84,7 +86,7 @@
       <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
     </footer>
   </div>
-  <script src="./index.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 
 </html>

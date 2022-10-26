@@ -1,7 +1,6 @@
 .profile__description {
   grid-area: name;
   display: flex;
-  flex-wrap: wrap;
   column-gap: 18px;
   align-self: end;
 }

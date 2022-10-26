@@ -6,7 +6,7 @@
   "avatar subline add";
   align-items: center;
   row-gap: 16px;
-  grid-template-columns: 150px 336px auto;
+  grid-template-columns: min-content 1fr min-content;
 }
 
 @media screen and (max-width: 1040px) {
