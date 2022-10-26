@@ -12,15 +12,15 @@
 <body class="root">
   <div class="page">
     <div class="popup">
-      <form class="popup__container" method="get" name="profile-edit">
+      <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="Закрыть попап"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <div class="popup__inputs">
+        <form method="get" name="profile-edit" class="popup__form">
           <input type="text" value="" class="popup__text popup__text_input_name" name="profile-name">
           <input type="text" value="" class="popup__text popup__text_input_profession" name="profile-profession">
-        </div>
-        <button class="popup__save-button" type="submit">Сохранить</button>
-      </form>
+          <button class="popup__save-button" type="submit">Сохранить</button>
+        </form>
+      </div>
     </div>
     <header class="header">
       <img src="./images/logo.svg" alt="Логотип проекта Место Россия" class="logo">
@@ -37,48 +37,60 @@
       </section>
       <section class="elements">
         <ul class="elements__list">
-          <li class="card">
-            <img src="./images/moscow.jpg" alt="Московский Кремль" class="card__image">
-            <div class="card__description">
-              <h2 class="card__name">Москва</h2>
-              <button class="card__button" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/ivanovo.jpg" alt="Поезд Иваноского вокзала на фоне церкви" class="card__image">
-            <div class="card__description">
-              <h2 class="card__name">Иваново</h2>
-              <button class="card__button" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/suzdal.jpg" alt="Церковь Илии Пророка" class="card__image">
-            <div class="card__description">
-              <h2 class="card__name">Суздаль</h2>
-              <button class="card__button" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/Город_Йошкар-Ола_Марий_Эл_8.jpg" alt="Благовещенский собор" class="card__image">
-            <div class="card__description">
-              <h2 class="card__name">Йошкар-Ола</h2>
-              <button class="card__button" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/Мечеть_Кул_Шариф_02,_2009.jpg" alt="Мечеть Кул-Шариф" class="card__image">
-            <div class="card__description">
-              <h2 class="card__name">Казань</h2>
-              <button class="card__button" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/kostroma.jpg" alt="Костромская церковь" class="card__image">
-            <div class="card__description">
-              <h2 class="card__name">Кострома</h2>
-              <button class="card__button" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
+          <article class="card">
+            <li>
+              <img src="./images/moscow.jpg" alt="Московский Кремль" class="card__image">
+              <div class="card__description">
+                <h2 class="card__name">Москва</h2>
+                <button class="card__button" type="button" aria-label="Лайк"></button>
+              </div>
+            </li>
+          </article>
+          <article class="card">
+            <li>
+              <img src="./images/ivanovo.jpg" alt="Поезд Иваноского вокзала на фоне церкви" class="card__image">
+              <div class="card__description">
+                <h2 class="card__name">Иваново</h2>
+                <button class="card__button" type="button" aria-label="Лайк"></button>
+              </div>
+            </li>
+          </article>
+          <article class="card">
+            <li>
+              <img src="./images/suzdal.jpg" alt="Церковь Илии Пророка" class="card__image">
+              <div class="card__description">
+                <h2 class="card__name">Суздаль</h2>
+                <button class="card__button" type="button" aria-label="Лайк"></button>
+              </div>
+            </li>
+          </article>
+          <article class="card">
+            <li>
+              <img src="./images/Город_Йошкар-Ола_Марий_Эл_8.jpg" alt="Благовещенский собор" class="card__image">
+              <div class="card__description">
+                <h2 class="card__name">Йошкар-Ола</h2>
+                <button class="card__button" type="button" aria-label="Лайк"></button>
+              </div>
+            </li>
+          </article>
+          <article class="card">
+            <li>
+              <img src="./images/Мечеть_Кул_Шариф_02,_2009.jpg" alt="Мечеть Кул-Шариф" class="card__image">
+              <div class="card__description">
+                <h2 class="card__name">Казань</h2>
+                <button class="card__button" type="button" aria-label="Лайк"></button>
+              </div>
+            </li>
+          </article>
+          <article class="card">
+            <li>
+              <img src="./images/kostroma.jpg" alt="Костромская церковь" class="card__image">
+              <div class="card__description">
+                <h2 class="card__name">Кострома</h2>
+                <button class="card__button" type="button" aria-label="Лайк"></button>
+              </div>
+            </li>
+          </article>
         </ul>
       </section>
     </main>

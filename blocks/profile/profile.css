@@ -11,7 +11,6 @@
 
 @media screen and (max-width: 930px) {
   .profile {
-    padding: 42px 19px 0;
     grid-template-areas:
     "avatar"
     "name"
@@ -20,5 +19,11 @@
     grid-template-columns: auto;
     row-gap: 0;
     justify-items: center;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile { 
+    padding: 42px 19px 0;
   }
 }

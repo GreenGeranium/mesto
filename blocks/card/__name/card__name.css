@@ -1,4 +1,6 @@
 .card__name {
+  max-width: calc(246px - 22px - 5px);
+  width: 100%;
   margin: 0;
   font-style: normal;
   font-weight: 900;
