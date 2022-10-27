@@ -1,24 +1,12 @@
 .profile {
   padding: 40px 200px 0;
-  display: grid;
-  grid-template-areas: 
-  "avatar name add"
-  "avatar subline add";
+  display: flex;
   align-items: center;
-  row-gap: 16px;
-  grid-template-columns: min-content 1fr min-content;
 }
 
 @media screen and (max-width: 930px) {
   .profile {
-    grid-template-areas:
-    "avatar"
-    "name"
-    "subline"
-    "add";
-    grid-template-columns: auto;
-    row-gap: 0;
-    justify-items: center;
+    flex-direction: column;
   }
 }
 

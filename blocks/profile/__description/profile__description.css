@@ -1,19 +1,15 @@
 .profile__description {
-  grid-area: name;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 24px;
   column-gap: 18px;
-  align-self: end;
-}
-
-@media screen and (max-width: 1040px) {
-  .profile__description {
-    margin-bottom: 14px;
-    column-gap: 10px;
-  }
+  row-gap: 16px;
 }
 
 @media screen and (max-width: 930px) {
   .profile__description {
-    margin-left: 28px;
+    column-gap: 10px;
+    row-gap: 14px;
+    margin-bottom: 36px;
+    grid-template-columns: 1fr 18px;
   }
 }

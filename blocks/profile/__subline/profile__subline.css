@@ -4,9 +4,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-  grid-area: subline;
   color: #FFFFFF;
-  align-self: flex-start;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -25,6 +23,6 @@
 @media screen and (max-width: 930px) {
   .profile__subline {
     text-align: center;
-    margin-bottom: 36px;
+    grid-column: 1 / -1;
   }
 }
