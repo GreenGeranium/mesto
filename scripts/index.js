@@ -1,28 +1,28 @@
-const editBtn = document.querySelector('.profile__edit-button');
-const closeBtn = document.querySelector('.popup__close-button');
-const popup = document.querySelector('.popup');
-const formProfile = document.querySelector('.popup__form');
-const nameInput = document.querySelector('.popup__text_input_name');
-const jobInput = document.querySelector('.popup__text_input_profession');
-const nameProfile = document.querySelector('.profile__name');
-const jobProfile = document.querySelector('.profile__subline');
+const editBtn = document.querySelector(".profile__edit-button");
+const closeBtn = document.querySelector(".popup__close-button");
+const popup = document.querySelector(".popup");
+const formProfile = document.querySelector(".popup__form");
+const nameInput = document.querySelector(".popup__text_input_name");
+const jobInput = document.querySelector(".popup__text_input_profession");
+const nameProfile = document.querySelector(".profile__name");
+const jobProfile = document.querySelector(".profile__subline");
 //const likeBtn = document.querySelectorAll('.card__button');
 
 function openPopup() {
-  popup.classList.add('popup_opened');
+  popup.classList.add("popup_opened");
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
 }
 
 function closePopup() {
-  popup.classList.remove('popup_opened');
+  popup.classList.remove("popup_opened");
 }
 
 function formSubmitHandler(evt) {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
-  closePopup()
+  closePopup();
 }
 
 /* for (let i = 0; i < likeBtn.length; i++) {
@@ -31,13 +31,11 @@ function formSubmitHandler(evt) {
   });
 } */
 
-
-
-editBtn.addEventListener('click', openPopup);
-closeBtn.addEventListener('click', closePopup);
-formProfile.addEventListener('submit', formSubmitHandler);
-/* formProfile.addEventListener('click', formSubmitHandler);
- *//* document.addEventListener('keypress', function (evt) {
+editBtn.addEventListener("click", openPopup);
+closeBtn.addEventListener("click", closePopup);
+formProfile.addEventListener("submit", formSubmitHandler);
+/*formProfile.addEventListener('click', formSubmitHandler);
+  document.addEventListener('keypress', function (evt) {
   if (evt.key === 'Enter') {
     formSubmitHandler(evt);
     closePopup();
