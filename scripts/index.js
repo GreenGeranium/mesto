@@ -5,6 +5,7 @@ const popupAdd = document.querySelector(".popup_add");
 const popupImage = document.querySelector(".popup_image");
 const closeBtnEdit = popupEdit.querySelector(".popup__close-button");
 const closeBtnAdd = popupAdd.querySelector(".popup__close-button");
+const closeBtnImage = popupImage.querySelector(".popup__close-button");
 const formPopupEdit = popupEdit.querySelector(".popup__form");
 const formPopupAdd = popupAdd.querySelector(".popup__form");
 const nameInput = popupEdit.querySelector(".popup__text_input_name");
@@ -60,6 +61,10 @@ function addCard(place, link) {
     .querySelector(".card__image")
     .addEventListener("click", (event) => {
       openPopup(popupImage);
+      popupImage.querySelector(".popup__image").src =
+        cardElement.querySelector(".card__image").src;
+      popupImage.querySelector(".popup__subline").textContent =
+        cardElement.querySelector(".card__name").textContent;
     });
   cardContainer.prepend(cardElement);
 }
@@ -96,6 +101,7 @@ editBtn.addEventListener("click", () => {
 addBtn.addEventListener("click", () => openPopup(popupAdd));
 closeBtnEdit.addEventListener("click", () => closePopup(popupEdit));
 closeBtnAdd.addEventListener("click", () => closePopup(popupAdd));
+closeBtnImage.addEventListener("click", () => closePopup(popupImage));
 formPopupEdit.addEventListener("submit", (evt) =>
   formSubmitHandler(evt, popupEdit)
 );

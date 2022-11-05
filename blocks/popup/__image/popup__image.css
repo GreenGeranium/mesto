@@ -1,3 +1,9 @@
 .popup__image {
-  
+  max-width: 75vw;
+  max-height: 75vh;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  vertical-align: bottom;
+  justify-self: center;
 }
