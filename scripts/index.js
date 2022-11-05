@@ -6,7 +6,37 @@ const nameInput = document.querySelector(".popup__text_input_name");
 const jobInput = document.querySelector(".popup__text_input_profession");
 const nameProfile = document.querySelector(".profile__name");
 const jobProfile = document.querySelector(".profile__subline");
-//const likeBtn = document.querySelectorAll('.card__button');
+const initialCards = [
+  {
+    name: "Москва",
+    link: "./images/moscow.jpg",
+  },
+  {
+    name: "Иваново",
+    link: "./images/ivanovo.jpg",
+  },
+  {
+    name: "Суздаль",
+    link: "./images/suzdal.jpg",
+  },
+  {
+    name: "Йошкар-Ола",
+    link: "./images/Город_Йошкар-Ола_Марий_Эл_8.jpg",
+  },
+  {
+    name: "Казань",
+    link: "./images/Мечеть_Кул_Шариф_02,_2009.jpg",
+  },
+  {
+    name: "Кострома",
+    link: "./images/kostroma.jpg",
+  },
+];
+const cardTemplate = document.querySelector("#card-template").content;
+const cardContainer = document.querySelector(".elements__list");
+const cardElement = cardTemplate
+  .querySelector(".elements__item")
+  .cloneNode(true);
 
 function openPopup() {
   popup.classList.add("popup_opened");
@@ -25,19 +55,13 @@ function formSubmitHandler(evt) {
   closePopup();
 }
 
-/* for (let i = 0; i < likeBtn.length; i++) {
-  likeBtn[i].addEventListener('click', function () {
-    likeBtn[i].classList.toggle('card__button_active');
-  });
-} */
-
 editBtn.addEventListener("click", openPopup);
 closeBtn.addEventListener("click", closePopup);
 formProfile.addEventListener("submit", formSubmitHandler);
-/*formProfile.addEventListener('click', formSubmitHandler);
-  document.addEventListener('keypress', function (evt) {
-  if (evt.key === 'Enter') {
-    formSubmitHandler(evt);
-    closePopup();
-  }
-}) */
+
+initialCards.forEach((card) => {
+  const cardDefault = cardElement.cloneNode(true);
+  cardDefault.querySelector(".card__name").textContent = card.name;
+  cardDefault.querySelector(".card__image").src = card.link;
+  cardContainer.append(cardDefault);
+});
