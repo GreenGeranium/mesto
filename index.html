@@ -9,6 +9,42 @@
   </head>
   <body class="root">
     <div class="page">
+      <header class="header">
+        <img
+          src="./images/logo.svg"
+          alt="Логотип проекта Место Россия"
+          class="logo"
+        />
+      </header>
+      <main class="content">
+        <section class="profile">
+          <img
+            src="./images/profile__image.jpg"
+            alt="Аватарка Жак-Ив Кусто"
+            class="profile__avatar"
+          />
+          <div class="profile__description">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button
+              class="profile__edit-button"
+              type="button"
+              aria-label="Редактировать профиль"
+            ></button>
+            <p class="profile__subline">Исследователь океана</p>
+          </div>
+          <button
+            class="profile__add-button"
+            type="button"
+            aria-label="Добавить фотографию"
+          ></button>
+        </section>
+        <section class="elements" aria-label="Фотокарточки городов">
+          <ul class="elements__list"></ul>
+        </section>
+      </main>
+      <footer class="footer">
+        <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
+      </footer>
       <div class="popup popup_edit">
         <div class="popup__container">
           <button
@@ -76,42 +112,6 @@
           </figure>
         </div>
       </div>
-      <header class="header">
-        <img
-          src="./images/logo.svg"
-          alt="Логотип проекта Место Россия"
-          class="logo"
-        />
-      </header>
-      <main class="content">
-        <section class="profile">
-          <img
-            src="./images/profile__image.jpg"
-            alt="Аватарка Жак-Ив Кусто"
-            class="profile__avatar"
-          />
-          <div class="profile__description">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button
-              class="profile__edit-button"
-              type="button"
-              aria-label="Редактировать профиль"
-            ></button>
-            <p class="profile__subline">Исследователь океана</p>
-          </div>
-          <button
-            class="profile__add-button"
-            type="button"
-            aria-label="Добавить фотографию"
-          ></button>
-        </section>
-        <section class="elements" aria-label="Фотокарточки городов">
-          <ul class="elements__list"></ul>
-        </section>
-      </main>
-      <footer class="footer">
-        <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
-      </footer>
     </div>
     <template id="card-template">
       <li class="elements__item">
@@ -129,6 +129,7 @@
         </article>
       </li>
     </template>
+    <script src="./scripts/cards.js"></script>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
