@@ -18,6 +18,10 @@ const cardContainer = document.querySelector(".elements__list");
 const cardTemplate = document.querySelector("#card-template").content;
 
 function addCard(cardData) {
+  cardContainer.prepend(createCard(cardData));
+}
+
+function createCard(cardData) {
   const cardElement = cardTemplate
     .querySelector(".elements__item")
     .cloneNode(true);
@@ -38,7 +42,7 @@ function addCard(cardData) {
     titleOfImagePopupImage.textContent = cardData.name;
     imageOfPopupImage.alt = cardData.name;
   });
-  cardContainer.prepend(cardElement);
+  return cardElement;
 }
 
 function openPopup(popup) {
