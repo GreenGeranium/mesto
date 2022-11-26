@@ -16,6 +16,15 @@ const nameProfile = document.querySelector(".profile__name");
 const jobProfile = document.querySelector(".profile__subline");
 const cardContainer = document.querySelector(".elements__list");
 const cardTemplate = document.querySelector("#card-template").content;
+const popups = document.querySelectorAll(".popup");
+
+// VALIDATION
+/* const forms = document.querySelectorAll("form");
+forms.forEach((form) => {
+  form.addEventListener("input", (e) => {
+    console.log(e.target.validity.valid);
+  });
+}); */
 
 function addCard(cardData) {
   cardContainer.prepend(createCard(cardData));
@@ -92,4 +101,20 @@ formPopupEdit.addEventListener("submit", (evt) => {
 });
 formPopupAdd.addEventListener("submit", (evt) => {
   handleSubmitAddForm(evt);
+});
+
+popups.forEach((popup) => {
+  popup.querySelector(".popup__container").addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  popup.addEventListener("click", (e) => {
+    closePopup(popup);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closePopup(popup);
+    }
+  });
 });
