@@ -12,9 +12,10 @@
 @import url(../blocks/popup/__container/_type/popup__container_type.css);
 @import url(../blocks/popup/__container/_type/_image/popup__container_type_image.css);
 @import url(../blocks/popup/__title/popup__title.css);
-@import url(../blocks/popup/__form/popup__form.css);
-@import url(../blocks/popup/__text/popup__text.css);
-@import url(../blocks/popup/__save-button/popup__save_button.css);
+@import url(../blocks/form/form.css);
+@import url(../blocks/form/__input/form__input.css);
+@import url(../blocks/form/__input/_type/_error/form__input_type_error.css);
+@import url(../blocks/form/__save-button/form__save_button.css);
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__figure/popup__figure.css);
 @import url(../blocks/popup/__subline/popup__subline.css);

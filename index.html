@@ -53,11 +53,11 @@
             aria-label="Закрыть попап"
           ></button>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <form method="get" name="profile-edit" class="popup__form" novalidate>
+          <form method="get" name="profile-edit" class="form" novalidate>
             <input
               type="text"
               value=""
-              class="popup__text popup__text_input_name"
+              class="form__input form__input_type_name"
               name="profile-name"
               placeholder="Имя"
               required
@@ -67,14 +67,14 @@
             <input
               type="text"
               value=""
-              class="popup__text popup__text_input_profession"
+              class="form__input form__input_type_profession"
               name="profile-profession"
               placeholder="Описание"
               required
               minlength="2"
               maxlength="200"
             />
-            <button class="popup__save-button" type="submit">Сохранить</button>
+            <button class="form__save-button" type="submit">Сохранить</button>
           </form>
         </div>
       </div>
@@ -86,11 +86,11 @@
             aria-label="Закрыть попап"
           ></button>
           <h2 class="popup__title">Новое место</h2>
-          <form method="get" name="card-add" class="popup__form" novalidate>
+          <form method="get" name="card-add" class="form" novalidate>
             <input
               type="text"
               value=""
-              class="popup__text popup__text_input_place"
+              class="form__input form__input_type_place"
               name="card-name"
               placeholder="Название"
               required
@@ -98,14 +98,14 @@
               maxlength="30"
             />
             <input
-              type="email"
+              type="url"
               value=""
-              class="popup__text popup__text_input_link"
+              class="form__input form__input_type_link"
               name="card-link"
               placeholder="Ссылка на картинку"
               required
             />
-            <button class="popup__save-button" type="submit">Создать</button>
+            <button class="form__save-button" type="submit">Создать</button>
           </form>
         </div>
       </div>
@@ -139,6 +139,7 @@
         </article>
       </li>
     </template>
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/cards.js"></script>
     <script src="./scripts/index.js"></script>
   </body>
