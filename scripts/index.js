@@ -18,15 +18,6 @@ const cardContainer = document.querySelector(".elements__list");
 const cardTemplate = document.querySelector("#card-template").content;
 const popups = document.querySelectorAll(".popup");
 
-// VALIDATION
-const forms = document.querySelectorAll("form");
-forms.forEach((form) => {
-  form.addEventListener("input", (e) => {
-    console.log(e.target.validity);
-    console.log(e.target.validationMessage);
-  });
-});
-
 function addCard(cardData) {
   cardContainer.prepend(createCard(cardData));
 }
