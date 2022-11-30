@@ -48,11 +48,23 @@ function createCard(cardData) {
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  enableValidation();
+  enableValidation(validationConfiguration);
+  document.addEventListener("keydown", (event) => {
+    checkIfEscButton(event, popup);
+  });
+}
+
+function checkIfEscButton(event, popup) {
+  if (event.key === "Escape") {
+    closePopup(popup);
+  }
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", (event) => {
+    checkIfEscButton(event, popup);
+  });
 }
 
 function handleSubmitEditForm(evt) {
@@ -103,11 +115,5 @@ popups.forEach((popup) => {
 
   popup.addEventListener("click", (e) => {
     closePopup(popup);
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closePopup(popup);
-    }
   });
 });
