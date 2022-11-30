@@ -27,11 +27,31 @@ function checkInputValidity(form, inputElement) {
 
 function setEventListeners(form) {
   const inputList = Array.from(form.querySelectorAll(".form__input"));
+  const buttonElement = form.querySelector(".form__save-button");
+  toggleSaveButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", (e) => {
       checkInputValidity(form, e.target);
+      toggleSaveButtonState(inputList, buttonElement);
     });
   });
+}
+
+//проверка всех полей инпута
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+}
+
+function toggleSaveButtonState(inputList, buttonElement) {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add("form__save-button_disabled");
+    buttonElement.disabled = true;
+  } else {
+    buttonElement.classList.remove("form__save-button_disabled");
+    buttonElement.disabled = false;
+  }
 }
 
 function enableValidation() {
@@ -40,5 +60,3 @@ function enableValidation() {
     setEventListeners(form);
   });
 }
-
-enableValidation();
