@@ -26,9 +26,10 @@ function createCard(cardData) {
   const cardElement = cardTemplate
     .querySelector(".elements__item")
     .cloneNode(true);
+  const cardImage = cardElement.querySelector(".card__image");
   cardElement.querySelector(".card__name").textContent = cardData.name;
-  cardElement.querySelector(".card__image").src = cardData.link;
-  cardElement.querySelector(".card__image").alt = cardData.name;
+  cardImage.src = cardData.link;
+  cardImage.alt = cardData.name;
   cardElement
     .querySelector(".card__button")
     .addEventListener("click", (like) =>
@@ -37,34 +38,30 @@ function createCard(cardData) {
   cardElement.querySelector(".card__trash").addEventListener("click", () => {
     cardElement.remove();
   });
-  cardElement.querySelector(".card__image").addEventListener("click", () => {
-    openPopup(popupImage);
+  cardImage.addEventListener("click", () => {
     imageOfPopupImage.src = cardData.link;
     titleOfImagePopupImage.textContent = cardData.name;
     imageOfPopupImage.alt = cardData.name;
+    openPopup(popupImage);
   });
   return cardElement;
 }
 
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  enableValidation(validationConfiguration);
-  document.addEventListener("keydown", (event) => {
-    checkIfEscButton(event, popup);
-  });
+function closeByEsc(event) {
+  const popupOpened = document.querySelector(".popup_opened");
+  if (event.key === "Escape") {
+    closePopup(popupOpened);
+  }
 }
 
-function checkIfEscButton(event, popup) {
-  if (event.key === "Escape") {
-    closePopup(popup);
-  }
+function openPopup(popup) {
+  popup.classList.add("popup_opened");
+  document.addEventListener("keydown", closeByEsc);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", (event) => {
-    checkIfEscButton(event, popup);
-  });
+  document.removeEventListener("keydown", closeByEsc);
 }
 
 function handleSubmitEditForm(evt) {
@@ -96,9 +93,9 @@ buttonCloseList.forEach((button) => {
 });
 
 btnEditSection.addEventListener("click", () => {
-  openPopup(popupEdit);
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
+  openPopup(popupEdit);
 });
 btnAddSection.addEventListener("click", () => openPopup(popupAdd));
 formPopupEdit.addEventListener("submit", (evt) => {
@@ -117,3 +114,5 @@ popups.forEach((popup) => {
     closePopup(popup);
   });
 });
+
+enableValidation(validationConfiguration);

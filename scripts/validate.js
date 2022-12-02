@@ -9,69 +9,72 @@ const validationConfiguration = {
 };
 
 // Появляется красная линия ошибки
-function showInputError(formSelector, inputSelector, errorMessage) {
-  const errorElement = formSelector.querySelector(`.${inputSelector.id}-error`);
-  inputSelector.classList.add("form__input_type_error");
+function showInputError(selectors, form, inputElement, errorMessage) {
+  const errorElement = form.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add(selectors.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add("form__input-error_active");
+  errorElement.classList.add(selectors.errorClass);
 }
 
 //Исчезает красная линия ошибки
-function hideInputError(formSelector, inputSelector) {
-  const errorElement = formSelector.querySelector(`.${inputSelector.id}-error`);
-  inputSelector.classList.remove("form__input_type_error");
-  errorElement.classList.remove("form__input-error_active");
+function hideInputError(selectors, form, inputElement) {
+  const errorElement = form.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove(selectors.inputErrorClass);
+  errorElement.classList.remove(selectors.errorClass);
   errorElement.textContent = "";
 }
 
 //проверка на валидность
-function checkInputValidity(formSelector, inputSelector) {
-  if (inputSelector.validity.valid) {
-    hideInputError(formSelector, inputSelector);
+function checkInputValidity(selectors, form, inputElement) {
+  if (inputElement.validity.valid) {
+    hideInputError(selectors, form, inputElement);
   } else {
     showInputError(
-      formSelector,
-      inputSelector,
-      inputSelector.validationMessage
+      selectors,
+      form,
+      inputElement,
+      inputElement.validationMessage
     );
   }
 }
 
 //навешивание слушателей на каждый инпут
 
-function setEventListeners(formSelector) {
-  const inputList = Array.from(formSelector.querySelectorAll(".form__input"));
-  const submitButtonSelector = formSelector.querySelector(".form__save-button");
-  toggleSaveButtonState(inputList, submitButtonSelector);
-  inputList.forEach((inputSelector) => {
-    inputSelector.addEventListener("input", (e) => {
-      checkInputValidity(formSelector, e.target);
-      toggleSaveButtonState(inputList, submitButtonSelector);
+function setEventListeners(selectors, form) {
+  const inputList = Array.from(form.querySelectorAll(selectors.inputSelector));
+  const submitButton = form.querySelector(selectors.submitButtonSelector);
+  toggleSaveButtonState(selectors, inputList, submitButton);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", (e) => {
+      checkInputValidity(selectors, form, e.target);
+      toggleSaveButtonState(selectors, inputList, submitButton);
     });
   });
 }
 
 //проверка всех полей инпута
 function hasInvalidInput(inputList) {
-  return inputList.some((inputSelector) => {
-    return !inputSelector.validity.valid;
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
   });
 }
 
 //изменение состояния кнопки
-function toggleSaveButtonState(inputList, submitButtonSelector) {
+function toggleSaveButtonState(selectors, inputList, submitButton) {
   if (hasInvalidInput(inputList)) {
-    submitButtonSelector.classList.add("form__save-button_disabled");
-    submitButtonSelector.disabled = true;
+    submitButton.classList.add(selectors.inactiveButtonClass);
+    submitButton.disabled = true;
   } else {
-    submitButtonSelector.classList.remove("form__save-button_disabled");
-    submitButtonSelector.disabled = false;
+    submitButton.classList.remove(selectors.inactiveButtonClass);
+    submitButton.disabled = false;
   }
 }
 
-function enableValidation() {
-  const formList = Array.from(document.querySelectorAll(".form"));
-  formList.forEach((formSelector) => {
-    setEventListeners(formSelector);
+function enableValidation(selectors) {
+  const formList = Array.from(
+    document.querySelectorAll(selectors.formSelector)
+  );
+  formList.forEach((form) => {
+    setEventListeners(selectors, form);
   });
 }
