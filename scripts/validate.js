@@ -59,6 +59,15 @@ function hasInvalidInput(inputList) {
   });
 }
 
+//Блокировка кнопки
+function disableSaveButton(popup, validationConfiguration) {
+  const button = popup.querySelector(
+    validationConfiguration.submitButtonSelector
+  );
+  button.classList.add(validationConfiguration.inactiveButtonClass);
+  button.disabled = true;
+}
+
 //изменение состояния кнопки
 function toggleSaveButtonState(selectors, inputList, submitButton) {
   if (hasInvalidInput(inputList)) {

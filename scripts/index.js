@@ -48,8 +48,8 @@ function createCard(cardData) {
 }
 
 function closeByEsc(event) {
-  const popupOpened = document.querySelector(".popup_opened");
   if (event.key === "Escape") {
+    const popupOpened = document.querySelector(".popup_opened");
     closePopup(popupOpened);
   }
 }
@@ -57,6 +57,7 @@ function closeByEsc(event) {
 function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closeByEsc);
+  disableSaveButton(popup, validationConfiguration);
 }
 
 function closePopup(popup) {
