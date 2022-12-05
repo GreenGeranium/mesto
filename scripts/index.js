@@ -57,7 +57,6 @@ function closeByEsc(event) {
 function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closeByEsc);
-  disableSaveButton(popup, validationConfiguration);
 }
 
 function closePopup(popup) {
@@ -97,8 +96,12 @@ btnEditSection.addEventListener("click", () => {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
   openPopup(popupEdit);
+  disableSaveButton(popupEdit, validationConfiguration);
 });
-btnAddSection.addEventListener("click", () => openPopup(popupAdd));
+btnAddSection.addEventListener("click", () => {
+  openPopup(popupAdd);
+  disableSaveButton(popupAdd, validationConfiguration);
+});
 formPopupEdit.addEventListener("submit", (evt) => {
   handleSubmitEditForm(evt);
 });
