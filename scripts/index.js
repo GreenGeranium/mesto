@@ -1,4 +1,5 @@
 import Card from "./Card.js";
+import initialCards from "./cards.js";
 
 const btnEditSection = document.querySelector(".profile__edit-button");
 const btnAddSection = document.querySelector(".profile__add-button");
