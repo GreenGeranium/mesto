@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Место</title>
-    <link rel="stylesheet" href="./pages/index.css">
-    <meta name="author" content="Максим Грасси">
+    <link rel="stylesheet" href="./pages/index.css" />
+    <meta name="author" content="Максим Грасси" />
   </head>
   <body class="root">
     <div class="page">
@@ -14,7 +14,7 @@
           src="./images/logo.svg"
           alt="Логотип проекта Место Россия"
           class="logo"
-       >
+        />
       </header>
       <main class="content">
         <section class="profile">
@@ -22,7 +22,7 @@
             src="./images/profile__image.jpg"
             alt="Аватарка Жак-Ив Кусто"
             class="profile__avatar"
-         >
+          />
           <div class="profile__description">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <button
@@ -65,7 +65,7 @@
                 minlength="2"
                 maxlength="40"
                 id="name-input"
-             >
+              />
               <span class="name-input-error form__input-error"></span>
             </label>
             <label class="form__field">
@@ -79,7 +79,7 @@
                 minlength="2"
                 maxlength="200"
                 id="profession-input"
-             >
+              />
               <span class="profession-input-error form__input-error"></span>
             </label>
             <button class="form__save-button" type="submit">Сохранить</button>
@@ -106,7 +106,7 @@
                 minlength="2"
                 maxlength="30"
                 id="place-input"
-             >
+              />
               <span class="place-input-error form__input-error"></span>
             </label>
             <label class="form__field">
@@ -118,7 +118,7 @@
                 placeholder="Ссылка на картинку"
                 required
                 id="link-input"
-             >
+              />
               <span class="link-input-error form__input-error"></span>
             </label>
             <button class="form__save-button" type="submit">Создать</button>
@@ -133,7 +133,7 @@
             aria-label="Закрыть попап"
           ></button>
           <figure class="popup__figure">
-            <img src="#" class="popup__image">
+            <img src="#" class="popup__image" />
             <figcaption class="popup__subline"></figcaption>
           </figure>
         </div>
@@ -142,7 +142,7 @@
     <template id="card-template">
       <li class="elements__item">
         <article class="card">
-          <img class="card__image">
+          <img class="card__image" />
           <div class="card__trash"></div>
           <div class="card__description">
             <h2 class="card__name"></h2>
@@ -157,6 +157,6 @@
     </template>
     <script src="./scripts/validate.js"></script>
     <script src="./scripts/cards.js"></script>
-    <script src="./scripts/index.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>

@@ -1,10 +1,13 @@
+import Card from "./Card.js";
+
 const btnEditSection = document.querySelector(".profile__edit-button");
 const btnAddSection = document.querySelector(".profile__add-button");
 const popupEdit = document.querySelector(".popup_edit");
 const popupAdd = document.querySelector(".popup_add");
-const popupImage = document.querySelector(".popup_image");
-const imageOfPopupImage = popupImage.querySelector(".popup__image");
-const titleOfImagePopupImage = popupImage.querySelector(".popup__subline");
+export const popupImage = document.querySelector(".popup_image");
+export const imageOfPopupImage = popupImage.querySelector(".popup__image");
+export const titleOfImagePopupImage =
+  popupImage.querySelector(".popup__subline");
 const buttonCloseList = document.querySelectorAll(".popup__close-button");
 const formPopupEdit = popupEdit.querySelector(".form");
 const formPopupAdd = popupAdd.querySelector(".form");
@@ -15,27 +18,29 @@ const linkInput = popupAdd.querySelector(".form__input_type_link");
 const nameProfile = document.querySelector(".profile__name");
 const jobProfile = document.querySelector(".profile__subline");
 const cardContainer = document.querySelector(".elements__list");
-const cardTemplate = document.querySelector("#card-template").content;
 const popups = document.querySelectorAll(".popup");
 
+//Добавление карточки
 function addCard(cardData) {
-  cardContainer.prepend(createCard(cardData));
+  const card = new Card(cardData);
+  cardContainer.prepend(card.getView());
 }
 
-function createCard(cardData) {
-  const cardElement = cardTemplate
+//Генерирование карточки
+/* function createCard(cardData) {
+    const cardElement = cardTemplate
     .querySelector(".elements__item")
     .cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
   cardElement.querySelector(".card__name").textContent = cardData.name;
-  cardImage.src = cardData.link;
+    cardImage.src = cardData.link;
   cardImage.alt = cardData.name;
-  cardElement
+    cardElement
     .querySelector(".card__button")
     .addEventListener("click", (like) =>
       like.target.classList.toggle("card__button_active")
     );
-  cardElement.querySelector(".card__trash").addEventListener("click", () => {
+    cardElement.querySelector(".card__trash").addEventListener("click", () => {
     cardElement.remove();
   });
   cardImage.addEventListener("click", () => {
@@ -45,7 +50,7 @@ function createCard(cardData) {
     openPopup(popupImage);
   });
   return cardElement;
-}
+} */
 
 function closeByEsc(event) {
   if (event.key === "Escape") {
@@ -54,7 +59,7 @@ function closeByEsc(event) {
   }
 }
 
-function openPopup(popup) {
+export function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closeByEsc);
 }
