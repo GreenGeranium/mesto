@@ -77,7 +77,7 @@ function handleSubmitAddForm(evt) {
     name: placeInput.value,
     link: linkInput.value,
   };
-  addCard(cardFromPopup);
+  addCard(cardFromPopup, "#card-template");
   closePopup(popupAdd);
   evt.target.reset();
 }
