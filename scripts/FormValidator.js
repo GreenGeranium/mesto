@@ -8,6 +8,10 @@ class FormValidator {
     this._inputErrorClass = selectors.inputErrorClass;
     this._errorClass = selectors.errorClass;
     this._form = form;
+    this._inputList = Array.from(
+      this._form.querySelectorAll(this._inputSelector)
+    );
+    this._submitButton = this._form.querySelector(this._submitButtonSelector);
   }
 
   //Появляется красная линия ошибки
@@ -36,36 +40,39 @@ class FormValidator {
   }
 
   //проверка всех полей инпута
-  _hasInvalidInput(inputList) {
-    return inputList.some((inputElement) => {
+  _hasInvalidInput() {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   }
 
   //изменение состояния кнопки
-  _toggleSaveButtonState(inputList, submitButton) {
-    if (this._hasInvalidInput(inputList)) {
-      submitButton.classList.add(this._inactiveButtonClass);
-      submitButton.disabled = true;
+  _toggleSaveButtonState() {
+    if (this._hasInvalidInput()) {
+      this._submitButton.classList.add(this._inactiveButtonClass);
+      this._submitButton.disabled = true;
     } else {
-      submitButton.classList.remove(this._inactiveButtonClass);
-      submitButton.disabled = false;
+      this._submitButton.classList.remove(this._inactiveButtonClass);
+      this._submitButton.disabled = false;
     }
   }
 
   //навешивание слушателей на каждый инпут
   _setEventListeners() {
-    const inputList = Array.from(
-      this._form.querySelectorAll(this._inputSelector)
-    );
-    const submitButton = this._form.querySelector(this._submitButtonSelector);
-    this._toggleSaveButtonState(inputList, submitButton);
-    inputList.forEach((inputElement) => {
+    this._toggleSaveButtonState();
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement, this._form);
-        this._toggleSaveButtonState(inputList, submitButton);
+        this._toggleSaveButtonState();
       });
     });
+  }
+
+  //Отключение кнопки сохранения формы
+  disableSaveButton(popup) {
+    const button = popup.querySelector(this._submitButtonSelector);
+    button.classList.add(this._inactiveButtonClass);
+    button.disabled = true;
   }
 
   enableValidation() {

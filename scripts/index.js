@@ -22,6 +22,7 @@ const nameProfile = document.querySelector(".profile__name");
 const jobProfile = document.querySelector(".profile__subline");
 const cardContainer = document.querySelector(".elements__list");
 const popups = document.querySelectorAll(".popup");
+const validators = {};
 
 // параметры валидации
 const validationConfiguration = {
@@ -33,19 +34,23 @@ const validationConfiguration = {
   errorClass: "form__input-error_active",
 };
 
-//Добавление карточки
-function addCard(cardData) {
-  const card = new Card(cardData);
-  cardContainer.prepend(card.getView());
+//валидация каждой формы
+function enableValidation(selectors) {
+  const formList = Array.from(
+    document.querySelectorAll(selectors.formSelector)
+  );
+  formList.forEach((form) => {
+    const validator = new FormValidator(selectors, form);
+    const nameOfForm = form.getAttribute("name");
+    validators[nameOfForm] = validator;
+    validator.enableValidation();
+  });
 }
 
-//Отключение кнопки сохранения формы
-function disableSaveButton(popup, validationConfiguration) {
-  const button = popup.querySelector(
-    validationConfiguration.submitButtonSelector
-  );
-  button.classList.add(validationConfiguration.inactiveButtonClass);
-  button.disabled = true;
+//Добавление карточки
+function addCard(cardData, cardTemplate) {
+  const card = new Card(cardData, cardTemplate);
+  cardContainer.prepend(card.getView());
 }
 
 //закрытие попапа по esc
@@ -85,13 +90,12 @@ function handleSubmitAddForm(evt) {
   };
   addCard(cardFromPopup);
   closePopup(popupAdd);
-  placeInput.value = "";
-  linkInput.value = "";
+  evt.target.reset();
 }
 
 //добавление всех карточек из массива с данными
 initialCards.reverse().forEach((item) => {
-  addCard(item);
+  addCard(item, "#card-template");
 });
 
 //закрытие попапов по крестику
@@ -100,18 +104,20 @@ buttonCloseList.forEach((button) => {
   button.addEventListener("click", () => closePopup(popup));
 });
 
+enableValidation(validationConfiguration);
+
 //открытие профиля по кнопке
 btnEditSection.addEventListener("click", () => {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
   openPopup(popupEdit);
-  disableSaveButton(popupEdit, validationConfiguration);
+  validators["profile-edit"].disableSaveButton(popupEdit);
 });
 
 //открытие формы с добавлением карточки
 btnAddSection.addEventListener("click", () => {
   openPopup(popupAdd);
-  disableSaveButton(popupAdd, validationConfiguration);
+  validators["card-add"].disableSaveButton(popupAdd);
 });
 
 formPopupEdit.addEventListener("submit", (evt) => {
@@ -132,16 +138,3 @@ popups.forEach((popup) => {
     closePopup(popup);
   });
 });
-
-//валидация каждой формы
-function enableValidation(selectors) {
-  const formList = Array.from(
-    document.querySelectorAll(selectors.formSelector)
-  );
-  formList.forEach((form) => {
-    const validator = new FormValidator(selectors, form);
-    validator.enableValidation();
-  });
-}
-
-enableValidation(validationConfiguration);

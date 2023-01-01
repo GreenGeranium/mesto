@@ -6,10 +6,11 @@ import {
 } from "./index.js";
 
 class Card {
-  constructor({ name, link }) {
+  constructor(card, cardTemplate) {
+    this._cardTemplate = cardTemplate;
     this._newCard = this._getTemplateCard();
-    this._name = name;
-    this._link = link;
+    this._name = card.name;
+    this._link = card.link;
     this._likeButton = this._newCard.querySelector(".card__button");
     this._deleteButton = this._newCard.querySelector(".card__trash");
     this._cardImage = this._newCard.querySelector(".card__image");
@@ -18,7 +19,7 @@ class Card {
   //Получение клона карточки
   _getTemplateCard() {
     const card = document
-      .querySelector("#card-template")
+      .querySelector(this._cardTemplate)
       .content.querySelector(".elements__item")
       .cloneNode(true);
     return card;
