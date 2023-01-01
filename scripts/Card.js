@@ -3,7 +3,8 @@ import {
   imageOfPopupImage,
   titleOfImagePopupImage,
   openPopup,
-} from "./index.js";
+  closeByEsc,
+} from "../utils/utils.js";
 
 class Card {
   constructor(card, cardTemplate) {

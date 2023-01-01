@@ -2,15 +2,18 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import initialCards from "./cards.js";
+import {
+  popupImage,
+  imageOfPopupImage,
+  titleOfImagePopupImage,
+  openPopup,
+  closeByEsc,
+} from "../utils/utils.js";
 
 const btnEditSection = document.querySelector(".profile__edit-button");
 const btnAddSection = document.querySelector(".profile__add-button");
 const popupEdit = document.querySelector(".popup_edit");
 const popupAdd = document.querySelector(".popup_add");
-export const popupImage = document.querySelector(".popup_image");
-export const imageOfPopupImage = popupImage.querySelector(".popup__image");
-export const titleOfImagePopupImage =
-  popupImage.querySelector(".popup__subline");
 const buttonCloseList = document.querySelectorAll(".popup__close-button");
 const formPopupEdit = popupEdit.querySelector(".form");
 const formPopupAdd = popupAdd.querySelector(".form");
@@ -51,20 +54,6 @@ function enableValidation(selectors) {
 function addCard(cardData, cardTemplate) {
   const card = new Card(cardData, cardTemplate);
   cardContainer.prepend(card.getView());
-}
-
-//закрытие попапа по esc
-function closeByEsc(event) {
-  if (event.key === "Escape") {
-    const popupOpened = document.querySelector(".popup_opened");
-    closePopup(popupOpened);
-  }
-}
-
-//открытие попапа
-export function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", closeByEsc);
 }
 
 //закрытие попапа
