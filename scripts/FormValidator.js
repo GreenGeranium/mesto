@@ -1,12 +1,12 @@
 class FormValidator {
   constructor(selectors, form) {
     this._selectors = selectors;
-    this._formSelector = selectors.formSelector;
-    this._inputSelector = selectors.inputSelector;
-    this._submitButtonSelector = selectors.submitButtonSelector;
-    this._inactiveButtonClass = selectors.inactiveButtonClass;
-    this._inputErrorClass = selectors.inputErrorClass;
-    this._errorClass = selectors.errorClass;
+    this._formSelector = this._selectors.formSelector;
+    this._inputSelector = this._selectors.inputSelector;
+    this._submitButtonSelector = this._selectors.submitButtonSelector;
+    this._inactiveButtonClass = this._selectors.inactiveButtonClass;
+    this._inputErrorClass = this._selectors.inputErrorClass;
+    this._errorClass = this._selectors.errorClass;
     this._form = form;
     this._inputList = Array.from(
       this._form.querySelectorAll(this._inputSelector)
@@ -69,10 +69,9 @@ class FormValidator {
   }
 
   //Отключение кнопки сохранения формы
-  disableSaveButton(popup) {
-    const button = popup.querySelector(this._submitButtonSelector);
-    button.classList.add(this._inactiveButtonClass);
-    button.disabled = true;
+  disableSaveButton() {
+    this._submitButton.classList.add(this._inactiveButtonClass);
+    this._submitButton.disabled = true;
   }
 
   enableValidation() {

@@ -4,6 +4,7 @@ import {
   titleOfImagePopupImage,
   openPopup,
   closeByEsc,
+  closePopup
 } from "../utils/utils.js";
 
 class Card {

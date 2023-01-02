@@ -8,6 +8,7 @@ import {
   titleOfImagePopupImage,
   openPopup,
   closeByEsc,
+  closePopup
 } from "../utils/utils.js";
 
 const btnEditSection = document.querySelector(".profile__edit-button");
@@ -56,12 +57,6 @@ function addCard(cardData, cardTemplate) {
   cardContainer.prepend(card.getView());
 }
 
-//закрытие попапа
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closeByEsc);
-}
-
 //обработчик отправки формы профиля
 function handleSubmitEditForm(evt) {
   evt.preventDefault();
@@ -100,13 +95,13 @@ btnEditSection.addEventListener("click", () => {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
   openPopup(popupEdit);
-  validators["profile-edit"].disableSaveButton(popupEdit);
+  validators["profile-edit"].disableSaveButton();
 });
 
 //открытие формы с добавлением карточки
 btnAddSection.addEventListener("click", () => {
   openPopup(popupAdd);
-  validators["card-add"].disableSaveButton(popupAdd);
+  validators["card-add"].disableSaveButton();
 });
 
 formPopupEdit.addEventListener("submit", (evt) => {
@@ -123,7 +118,7 @@ popups.forEach((popup) => {
     e.stopPropagation();
   });
 
-  popup.addEventListener("click", (e) => {
+  popup.addEventListener("click", () => {
     closePopup(popup);
   });
 });
