@@ -1,6 +1,7 @@
 //импорт классов и данных для карточек
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
+import Section from "./Section.js";
 import initialCards from "./cards.js";
 import {
   popupImage,
@@ -8,7 +9,8 @@ import {
   titleOfImagePopupImage,
   openPopup,
   closeByEsc,
-  closePopup
+  closePopup,
+  cardContainerSelector,
 } from "../utils/utils.js";
 
 const btnEditSection = document.querySelector(".profile__edit-button");
@@ -24,7 +26,6 @@ const placeInput = popupAdd.querySelector(".form__input_type_place");
 const linkInput = popupAdd.querySelector(".form__input_type_link");
 const nameProfile = document.querySelector(".profile__name");
 const jobProfile = document.querySelector(".profile__subline");
-const cardContainer = document.querySelector(".elements__list");
 const popups = document.querySelectorAll(".popup");
 const validators = {};
 
@@ -51,11 +52,22 @@ function enableValidation(selectors) {
   });
 }
 
-//Добавление карточки
-function addCard(cardData, cardTemplate) {
-  const card = new Card(cardData, cardTemplate);
-  cardContainer.prepend(card.getView());
-}
+//добавление карточек в контейнер
+const cardList = new Section(
+  {
+    //добавление всех карточек из массива с данными
+    items: initialCards.reverse(),
+    renderer: (item) => {
+      const card = new Card(item, "#card-template");
+      //Добавление карточки
+      const cardElement = card.getView();
+      cardList.addItem(cardElement);
+    },
+  },
+  cardContainerSelector
+);
+
+cardList.renderItems();
 
 //обработчик отправки формы профиля
 function handleSubmitEditForm(evt) {
@@ -76,11 +88,6 @@ function handleSubmitAddForm(evt) {
   closePopup(popupAdd);
   evt.target.reset();
 }
-
-//добавление всех карточек из массива с данными
-initialCards.reverse().forEach((item) => {
-  addCard(item, "#card-template");
-});
 
 //закрытие попапов по крестику
 buttonCloseList.forEach((button) => {
