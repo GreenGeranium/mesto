@@ -2,10 +2,9 @@ import {
   popupImage,
   imageOfPopupImage,
   titleOfImagePopupImage,
-  openPopup,
-  closeByEsc,
-  closePopup
 } from "../utils/utils.js";
+
+import Popup from "./Popup.js";
 
 class Card {
   constructor(card, cardTemplate) {
@@ -56,10 +55,11 @@ class Card {
     });
 
     this._cardImage.addEventListener("click", () => {
+      const popupWithImage = new Popup(".popup_image");
       imageOfPopupImage.src = this._link;
       titleOfImagePopupImage.textContent = this._name;
       imageOfPopupImage.alt = this._name;
-      openPopup(popupImage);
+      popupWithImage.open();
     });
   }
 
