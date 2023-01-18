@@ -1,10 +1,4 @@
-import {
-  popupImage,
-  imageOfPopupImage,
-  titleOfImagePopupImage,
-} from "../utils/utils.js";
-
-import Popup from "./Popup.js";
+import PopupWithImage from "./PopupWithImage.js";
 
 class Card {
   constructor(card, cardTemplate) {
@@ -55,11 +49,12 @@ class Card {
     });
 
     this._cardImage.addEventListener("click", () => {
-      const popupWithImage = new Popup(".popup_image");
-      imageOfPopupImage.src = this._link;
-      titleOfImagePopupImage.textContent = this._name;
-      imageOfPopupImage.alt = this._name;
-      popupWithImage.open();
+      const popupImage = new PopupWithImage(
+        this._name,
+        this._link,
+        ".popup_image"
+      );
+      popupImage.open();
     });
   }
 

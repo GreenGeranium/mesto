@@ -4,12 +4,8 @@ import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
 import initialCards from "./cards.js";
 import Popup from "./Popup.js";
-import {
-  popupImage,
-  imageOfPopupImage,
-  titleOfImagePopupImage,
-  cardContainerSelector,
-} from "../utils/utils.js";
+import PopupWithImage from "./PopupWithImage.js";
+import { cardContainerSelector } from "../utils/utils.js";
 
 const btnEditSection = document.querySelector(".profile__edit-button");
 const btnAddSection = document.querySelector(".profile__add-button");
