@@ -4,11 +4,8 @@ import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
 import initialCards from "./cards.js";
 import PopupWithForm from "./PopupWithForm.js";
-import {
-  cardContainerSelector,
-  nameProfile,
-  jobProfile,
-} from "../utils/utils.js";
+import UserInfo from "./UserInfo.js";
+import { cardContainerSelector } from "../utils/utils.js";
 
 //переменные
 const btnEditSection = document.querySelector(".profile__edit-button");
@@ -20,6 +17,22 @@ export const nameInput = document
 export const jobInput = document
   .querySelector(".popup_edit")
   .querySelector(".form__input_type_profession");
+
+// параметры валидации
+const validationConfiguration = {
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__save-button",
+  inactiveButtonClass: "form__save-button_disabled",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__input-error_active",
+};
+
+//получение информации о профиле
+const profileInfo = new UserInfo({
+  nameOfProfileSelector: ".profile__name",
+  professionOfProfileSelector: ".profile__subline",
+});
 
 //создание попапа с добавлением карточки
 const popupAdd = new PopupWithForm({
@@ -38,20 +51,12 @@ const popupAdd = new PopupWithForm({
 const popupEdit = new PopupWithForm({
   popupSelector: ".popup_edit",
   handleFormSubmit: (formData) => {
-    nameProfile.textContent = formData["profile-name"];
-    jobProfile.textContent = formData["profile-profession"];
+    profileInfo.setUserInfo({
+      newName: formData["profile-name"],
+      newProfession: formData["profile-profession"],
+    });
   },
 });
-
-// параметры валидации
-const validationConfiguration = {
-  formSelector: ".form",
-  inputSelector: ".form__input",
-  submitButtonSelector: ".form__save-button",
-  inactiveButtonClass: "form__save-button_disabled",
-  inputErrorClass: "form__input_type_error",
-  errorClass: "form__input-error_active",
-};
 
 //валидация каждой формы
 function enableValidation(selectors) {
@@ -83,9 +88,9 @@ export const cardList = new Section(
 
 //открытие профиля по кнопке
 btnEditSection.addEventListener("click", () => {
-  nameInput.value = nameProfile.textContent;
-  jobInput.value = jobProfile.textContent;
   popupEdit.open();
+  nameInput.value = profileInfo.getUserInfo()["name"];
+  jobInput.value = profileInfo.getUserInfo()["profession"];
   validators["profile-edit"].disableSaveButton();
 });
 
