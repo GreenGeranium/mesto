@@ -6,6 +6,7 @@ import initialCards from "./cards.js";
 import PopupWithForm from "./PopupWithForm.js";
 import UserInfo from "./UserInfo.js";
 import { cardContainerSelector } from "../utils/utils.js";
+import PopupWithImage from "./PopupWithImage.js";
 
 //переменные
 const btnEditSection = document.querySelector(".profile__edit-button");
@@ -77,7 +78,14 @@ export const cardList = new Section(
     //добавление всех карточек из массива с данными
     items: initialCards.reverse(),
     renderer: (item) => {
-      const card = new Card(item, "#card-template");
+      const card = new Card(item, "#card-template", () => {
+        const popupImage = new PopupWithImage(
+          item.name,
+          item.link,
+          ".popup_image"
+        );
+        popupImage.open();
+      });
       //Добавление карточки
       const cardElement = card.getView();
       cardList.addItem(cardElement);

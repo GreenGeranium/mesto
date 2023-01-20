@@ -1,7 +1,7 @@
 import PopupWithImage from "./PopupWithImage.js";
 
 class Card {
-  constructor(card, cardTemplate) {
+  constructor(card, cardTemplate, handleCardClick) {
     this._cardTemplate = cardTemplate;
     this._newCard = this._getTemplateCard();
     this._name = card.name;
@@ -9,6 +9,7 @@ class Card {
     this._likeButton = this._newCard.querySelector(".card__button");
     this._deleteButton = this._newCard.querySelector(".card__trash");
     this._cardImage = this._newCard.querySelector(".card__image");
+    this._handleCardClick = handleCardClick;
   }
 
   //Получение клона карточки
@@ -49,12 +50,7 @@ class Card {
     });
 
     this._cardImage.addEventListener("click", () => {
-      const popupImage = new PopupWithImage(
-        this._name,
-        this._link,
-        ".popup_image"
-      );
-      popupImage.open();
+      this._handleCardClick();
     });
   }
 
