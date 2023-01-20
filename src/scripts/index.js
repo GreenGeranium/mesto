@@ -1,3 +1,5 @@
+import "../pages/index.css";
+
 //импорт классов и данных для карточек
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
