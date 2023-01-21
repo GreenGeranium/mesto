@@ -23,6 +23,8 @@ class Card {
   _setData() {
     this._newCard.querySelector(".card__name").textContent = this._name;
     this._cardImage.src = this._link;
+    //console.log(`<%=require('${this._link}')%>`);
+    //this._cardImage.src = `<%=require('${this._link}')%>`;
     this._cardImage.alt = this._name;
   }
 
