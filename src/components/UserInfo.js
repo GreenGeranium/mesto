@@ -8,8 +8,8 @@ class UserInfo {
 
   getUserInfo() {
     const profile = {};
-    profile["name"] = this._nameOfProfile.textContent;
-    profile["profession"] = this._professionOfProfile.textContent;
+    profile["profile-name"] = this._nameOfProfile.textContent;
+    profile["profile-profession"] = this._professionOfProfile.textContent;
     return profile;
   }
 

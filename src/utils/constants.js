@@ -1,4 +1,9 @@
-const initialCards = [
+export const cardContainerSelector = document.querySelector(".elements__list");
+
+export const btnEditSection = document.querySelector(".profile__edit-button");
+export const btnAddSection = document.querySelector(".profile__add-button");
+
+export const initialCards = [
   {
     name: "Москва",
     //link: "../images/moscow.jpg",
@@ -31,4 +36,12 @@ const initialCards = [
   },
 ];
 
-export default initialCards;
+// параметры валидации
+export const validationConfiguration = {
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__save-button",
+  inactiveButtonClass: "form__save-button_disabled",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__input-error_active",
+};

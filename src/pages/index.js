@@ -1,35 +1,20 @@
 import "../pages/index.css";
-
 //импорт классов и данных для карточек
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
-import Section from "./Section.js";
-import initialCards from "./cards.js";
-import PopupWithForm from "./PopupWithForm.js";
-import UserInfo from "./UserInfo.js";
-import { cardContainerSelector } from "../utils/utils.js";
-import PopupWithImage from "./PopupWithImage.js";
+import Card from "../components/Card";
+import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
+import {
+  cardContainerSelector,
+  initialCards,
+  btnAddSection,
+  btnEditSection,
+  validationConfiguration,
+} from "../utils/constants.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 
-//переменные
-const btnEditSection = document.querySelector(".profile__edit-button");
-const btnAddSection = document.querySelector(".profile__add-button");
 const validators = {};
-export const nameInput = document
-  .querySelector(".popup_edit")
-  .querySelector(".form__input_type_name");
-export const jobInput = document
-  .querySelector(".popup_edit")
-  .querySelector(".form__input_type_profession");
-
-// параметры валидации
-const validationConfiguration = {
-  formSelector: ".form",
-  inputSelector: ".form__input",
-  submitButtonSelector: ".form__save-button",
-  inactiveButtonClass: "form__save-button_disabled",
-  inputErrorClass: "form__input_type_error",
-  errorClass: "form__input-error_active",
-};
 
 //получение информации о профиле
 const profileInfo = new UserInfo({
@@ -37,18 +22,26 @@ const profileInfo = new UserInfo({
   professionOfProfileSelector: ".profile__subline",
 });
 
+//создание карточки
+function createCard(item, cardTemplate = "#card-template", handleCardClick) {
+  const card = new Card(item, "#card-template", handleCardClick);
+  const cardElement = card.getView();
+  return cardElement;
+}
+
 //создание попапа с добавлением карточки
 const popupAdd = new PopupWithForm({
   popupSelector: ".popup_add",
   handleFormSubmit: (formData) => {
-    const card = new Card(
+    const card = createCard(
       { name: formData["card-name"], link: formData["card-link"] },
       "#card-template"
     );
-    const cardElement = card.getView();
-    cardList.addItem(cardElement);
+    cardList.addItem(card);
   },
 });
+
+popupAdd.setEventListeners();
 
 //создание попапа с изменением профиля
 const popupEdit = new PopupWithForm({
@@ -60,6 +53,8 @@ const popupEdit = new PopupWithForm({
     });
   },
 });
+
+popupEdit.setEventListeners();
 
 //валидация каждой формы
 function enableValidation(selectors) {
@@ -80,17 +75,12 @@ export const cardList = new Section(
     //добавление всех карточек из массива с данными
     items: initialCards.reverse(),
     renderer: (item) => {
-      const card = new Card(item, "#card-template", () => {
-        const popupImage = new PopupWithImage(
-          item.name,
-          item.link,
-          ".popup_image"
-        );
-        popupImage.open();
+      const card = createCard(item, "#card-template", () => {
+        const popupImage = new PopupWithImage(".popup_image");
+        popupImage.setEventListeners();
+        popupImage.open(item.name, item.link);
       });
-      //Добавление карточки
-      const cardElement = card.getView();
-      cardList.addItem(cardElement);
+      cardList.addItem(card);
     },
   },
   cardContainerSelector
@@ -99,8 +89,7 @@ export const cardList = new Section(
 //открытие профиля по кнопке
 btnEditSection.addEventListener("click", () => {
   popupEdit.open();
-  nameInput.value = profileInfo.getUserInfo()["name"];
-  jobInput.value = profileInfo.getUserInfo()["profession"];
+  popupEdit.setInputValues(profileInfo.getUserInfo());
   validators["profile-edit"].disableSaveButton();
 });
 
