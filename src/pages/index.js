@@ -35,7 +35,10 @@ const popupAdd = new PopupWithForm({
   handleFormSubmit: (formData) => {
     const card = createCard(
       { name: formData["card-name"], link: formData["card-link"] },
-      "#card-template"
+      "#card-template",
+      () => {
+        popupImage.open(formData["card-name"], formData["card-link"]);
+      }
     );
     cardList.addItem(card);
   },
@@ -69,6 +72,10 @@ function enableValidation(selectors) {
   });
 }
 
+//создание попапа с картинкой
+const popupImage = new PopupWithImage(".popup_image");
+popupImage.setEventListeners();
+
 //добавление карточек в контейнер
 export const cardList = new Section(
   {
@@ -76,8 +83,6 @@ export const cardList = new Section(
     items: initialCards.reverse(),
     renderer: (item) => {
       const card = createCard(item, "#card-template", () => {
-        const popupImage = new PopupWithImage(".popup_image");
-        popupImage.setEventListeners();
         popupImage.open(item.name, item.link);
       });
       cardList.addItem(card);
