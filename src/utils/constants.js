@@ -3,7 +3,11 @@ export const cardContainerSelector = document.querySelector(".elements__list");
 export const btnEditSection = document.querySelector(".profile__edit-button");
 export const btnAddSection = document.querySelector(".profile__add-button");
 
-export const initialCards = [
+export const profileName = document.querySelector(".profile__name");
+export const profileDescription = document.querySelector(".profile__subline");
+export const profileAvatar = document.querySelector(".profile__avatar");
+
+/*export const initialCards = [
   {
     name: "Москва",
     //link: "../images/moscow.jpg",
@@ -34,7 +38,7 @@ export const initialCards = [
     link: "https://i.ibb.co/D9yMS3T/kostroma.jpg",
     //link: "../images/kostroma.jpg",
   },
-];
+];*/
 
 // параметры валидации
 export const validationConfiguration = {
