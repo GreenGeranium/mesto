@@ -1,6 +1,7 @@
 .card__description {
   background: #FFFFFF;
   display: flex;
+  height: 23px;
   align-items: center;
   justify-content: space-between;
   padding: 25px 15px 31px 21px;

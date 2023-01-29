@@ -16,7 +16,6 @@ import {
 } from "../utils/constants.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Api from "../components/Api.js";
-import userInfo from "../components/UserInfo.js";
 const validators = {};
 
 //создание инстанса api для запросов на сервер
@@ -40,24 +39,29 @@ api
     console.log(err);
   });
 
+//создание карточки
+function createCard(item, cardTemplate = "#card-template", handleCardClick) {
+  const card = new Card(item, "#card-template", handleCardClick);
+  const cardElement = card.getView();
+  return cardElement;
+}
+
+//создание секции для карточек
+const cardList = new Section({
+  renderer: (item) => {
+    const card = createCard(item, "#card-template", () => {
+      popupImage.open(item.name, item.link);
+    });
+    cardList.addItem(card);
+  },
+  containerSelector: cardContainerSelector,
+});
+
 //получение карточек с сервера
 api
   .getInitialCards()
   .then((data) => {
-    const cardList = new Section(
-      {
-        //добавление всех карточек из массива с данными
-        items: data,
-        renderer: (item) => {
-          const card = createCard(item, "#card-template", () => {
-            popupImage.open(item.name, item.link);
-          });
-          cardList.addItem(card);
-        },
-      },
-      cardContainerSelector
-    );
-    cardList.renderItems();
+    cardList.renderItems(data.reverse());
   })
   .catch((err) => {
     console.log(err);
@@ -69,25 +73,20 @@ const profileInfo = new UserInfo({
   professionOfProfileSelector: ".profile__subline",
 });
 
-//создание карточки
-function createCard(item, cardTemplate = "#card-template", handleCardClick) {
-  const card = new Card(item, "#card-template", handleCardClick);
-  const cardElement = card.getView();
-  return cardElement;
-}
-
 //создание попапа с добавлением карточки
 const popupAdd = new PopupWithForm({
   popupSelector: ".popup_add",
   handleFormSubmit: (formData) => {
-    const card = createCard(
-      { name: formData["card-name"], link: formData["card-link"] },
-      "#card-template",
-      () => {
-        popupImage.open(formData["card-name"], formData["card-link"]);
-      }
-    );
-    cardList.addItem(card);
+    api
+      .addNewCard(formData["card-name"], formData["card-link"])
+      .then((data) => {
+        console.log(data);
+        const card = createCard(data, "#card-template", () => {
+          popupImage.open(data.name, data.link);
+        });
+        cardList.addItem(card);
+      })
+      .catch((err) => console.log(err));
   },
 });
 
@@ -103,12 +102,13 @@ const popupEdit = new PopupWithForm({
           newProfession: formData["profile-profession"],
         });
         console.log(data);
-      });
+      })
+      .catch((err) => console.log(err));
   },
 });
 
-popupEdit.setEventListeners();
-popupAdd.setEventListeners();
+//создание попапа с картинкой
+const popupImage = new PopupWithImage(".popup_image");
 
 //валидация каждой формы
 function enableValidation(selectors) {
@@ -123,10 +123,6 @@ function enableValidation(selectors) {
   });
 }
 
-//создание попапа с картинкой
-const popupImage = new PopupWithImage(".popup_image");
-popupImage.setEventListeners();
-
 //открытие профиля по кнопке
 btnEditSection.addEventListener("click", () => {
   popupEdit.open();
@@ -140,4 +136,7 @@ btnAddSection.addEventListener("click", () => {
   validators["card-add"].disableSaveButton();
 });
 
+popupImage.setEventListeners();
+popupEdit.setEventListeners();
+popupAdd.setEventListeners();
 enableValidation(validationConfiguration);

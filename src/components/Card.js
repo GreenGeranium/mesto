@@ -4,9 +4,11 @@ class Card {
     this._newCard = this._getTemplateCard();
     this._name = card.name;
     this._link = card.link;
+    this._likes = card.likes.length;
     this._likeButton = this._newCard.querySelector(".card__button");
     this._deleteButton = this._newCard.querySelector(".card__trash");
     this._cardImage = this._newCard.querySelector(".card__image");
+    this._numberOfLikes = this._newCard.querySelector(".card__likes-quantity");
     this._handleCardClick = handleCardClick;
   }
 
@@ -17,6 +19,12 @@ class Card {
       .content.querySelector(".elements__item")
       .cloneNode(true);
     return card;
+  }
+
+  //установка значения лайков карточки
+  _setLikes() {
+    this._numberOfLikes.textContent = this._likes;
+    //TODO ПРОВЕРИТЬ верстку карточки
   }
 
   //Установка значений имени и источника для картчки
@@ -57,6 +65,7 @@ class Card {
   //Получение видимой карточки на выходе
   getView() {
     this._setData();
+    this._setLikes();
     this._setEventListeners();
     return this._newCard;
   }
