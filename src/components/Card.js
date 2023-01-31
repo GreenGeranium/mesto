@@ -1,15 +1,32 @@
 class Card {
-  constructor(card, cardTemplate, handleCardClick) {
+  constructor(
+    card,
+    cardTemplate,
+    handleCardClick,
+    handleTrashClick,
+    profileId
+  ) {
     this._cardTemplate = cardTemplate;
     this._name = card.name;
     this._link = card.link;
     this._likes = card.likes.length;
+    this._cardId = card._id;
+    this._profileId = profileId;
+    this._ownerId = card.owner._id;
     this._newCard = this._getTemplateCard();
     this._likeButton = this._newCard.querySelector(".card__button");
     this._deleteButton = this._newCard.querySelector(".card__trash");
     this._cardImage = this._newCard.querySelector(".card__image");
     this._numberOfLikes = this._newCard.querySelector(".card__likes-quantity");
     this._handleCardClick = handleCardClick;
+    this._handleTrashClick = handleTrashClick;
+  }
+
+  //появление урны только у собственных карточек
+  _showTrashIcon() {
+    if (this._ownerId === this._profileId) {
+      this._deleteButton.style.display = "block";
+    }
   }
 
   //Получение клона карточки
@@ -39,8 +56,7 @@ class Card {
 
   //Удаление карточки
   _handleDelete() {
-    this._newCard.remove();
-    this._newCard = null;
+    this._handleTrashClick();
   }
 
   //Проставление лайка
@@ -65,6 +81,7 @@ class Card {
 
   //Получение видимой карточки на выходе
   getView() {
+    this._showTrashIcon();
     this._setData();
     this._setLikes();
     this._setEventListeners();

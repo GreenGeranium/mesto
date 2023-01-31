@@ -4,6 +4,7 @@ import Card from "../components/Card";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirmationOfDelete from "../components/PopupWithConfirmationOfDelete.js";
 import UserInfo from "../components/UserInfo.js";
 import {
   cardContainerSelector,
@@ -16,6 +17,7 @@ import {
 } from "../utils/constants.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Api from "../components/Api.js";
+import popupWithForm from "../components/PopupWithForm.js";
 const validators = {};
 
 //создание инстанса api для запросов на сервер
@@ -27,6 +29,8 @@ const api = new Api({
   },
 });
 
+let profileId;
+
 //установление имени и описания профиля
 api
   .getUserInfo()
@@ -34,14 +38,32 @@ api
     profileName.textContent = data.name;
     profileDescription.textContent = data.about;
     profileAvatar.src = data.avatar;
+    profileId = data._id;
   })
   .catch((err) => {
     console.log(err);
   });
 
+//создание попапа подтверждения удаления карточки
+const popupDeleteConfirmation = new PopupWithForm({
+  popupSelector: ".popup_confirmation",
+  handleFormSubmit: () => {
+    console.log(true);
+  },
+});
+
 //создание карточки
 function createCard(item, cardTemplate = "#card-template", handleCardClick) {
-  const card = new Card(item, "#card-template", handleCardClick);
+  function handleTrashClick() {
+    popupDeleteConfirmation.open();
+  }
+  const card = new Card(
+    item,
+    "#card-template",
+    handleCardClick,
+    handleTrashClick,
+    profileId
+  );
   const cardElement = card.getView();
   return cardElement;
 }
@@ -139,4 +161,5 @@ btnAddSection.addEventListener("click", () => {
 popupImage.setEventListeners();
 popupEdit.setEventListeners();
 popupAdd.setEventListeners();
+popupDeleteConfirmation.setEventListeners();
 enableValidation(validationConfiguration);

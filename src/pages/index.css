@@ -10,8 +10,10 @@
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__container/_type/popup__container_type.css);
+@import url(../blocks/popup/__container/_place/_container/popup__container_place_confirmation.css);
 @import url(../blocks/popup/__container/_type/_image/popup__container_type_image.css);
 @import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/__title/_place/_confirmation/popup__title_place_confirmation.css);
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__field/form__field.css);
 @import url(../blocks/form/__input/form__input.css);
@@ -20,6 +22,7 @@
 @import url(../blocks/form/__input/_type/_error/form__input_type_error.css);
 @import url(../blocks/form/__save-button/form__save-button.css);
 @import url(../blocks/form/__save-button/_disabled/form__save-button_disabled.css);
+@import url(../blocks/form/__save-button/_place/_confirmation/form__save-button_place_confirmation.css);
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__figure/popup__figure.css);
 @import url(../blocks/popup/__subline/popup__subline.css);
