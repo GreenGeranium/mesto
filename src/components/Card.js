@@ -1,10 +1,10 @@
 class Card {
   constructor(card, cardTemplate, handleCardClick) {
     this._cardTemplate = cardTemplate;
-    this._newCard = this._getTemplateCard();
     this._name = card.name;
     this._link = card.link;
     this._likes = card.likes.length;
+    this._newCard = this._getTemplateCard();
     this._likeButton = this._newCard.querySelector(".card__button");
     this._deleteButton = this._newCard.querySelector(".card__trash");
     this._cardImage = this._newCard.querySelector(".card__image");
@@ -24,6 +24,7 @@ class Card {
   //установка значения лайков карточки
   _setLikes() {
     this._numberOfLikes.textContent = this._likes;
+    //TODO попробовать this._likes.length и убрать length из конструктора
     //TODO ПРОВЕРИТЬ верстку карточки
   }
 
