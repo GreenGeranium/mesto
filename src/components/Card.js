@@ -7,6 +7,7 @@ class Card {
     profileId
   ) {
     this._cardTemplate = cardTemplate;
+    this._card = card;
     this._name = card.name;
     this._link = card.link;
     this._likes = card.likes.length;
@@ -54,11 +55,6 @@ class Card {
     this._cardImage.alt = this._name;
   }
 
-  //Удаление карточки
-  _handleDelete() {
-    this._handleTrashClick();
-  }
-
   //Проставление лайка
   _handleLike() {
     this._likeButton.classList.toggle("card__button_active");
@@ -67,7 +63,7 @@ class Card {
   //Установка слушателей
   _setEventListeners() {
     this._deleteButton.addEventListener("click", () => {
-      this._handleDelete();
+      this._handleTrashClick(this._cardId, this._newCard);
     });
 
     this._likeButton.addEventListener("click", () => {

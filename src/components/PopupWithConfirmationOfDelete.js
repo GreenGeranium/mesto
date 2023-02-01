@@ -1,13 +1,26 @@
-import PopupWithForm from "./PopupWithForm.js";
+import Popup from "./Popup.js";
 
-class PopupWithConfirmationOfDelete extends PopupWithForm {
+class PopupWithConfirmationOfDelete extends Popup {
   constructor({ popupSelector, handleFormSubmit }) {
     super(popupSelector);
-    this._handleDeleteCard = handleDeleteCard;
+    this._handleFormSubmit = handleFormSubmit;
   }
 
-  _handleDeleteCard() {
-    this._handleDeleteCard();
+  setCardId(card) {
+    this._cardId = card;
+  }
+
+  setCardTemplate(cardTemplate) {
+    this._cardTemplate = cardTemplate;
+  }
+
+  setEventListeners() {
+    super.setEventListeners();
+    this._popup.addEventListener("submit", (event) => {
+      event.preventDefault();
+      this._handleFormSubmit(this._cardId, this._cardTemplate);
+      this.close();
+    });
   }
 }
 

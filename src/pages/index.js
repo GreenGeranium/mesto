@@ -17,7 +17,7 @@ import {
 } from "../utils/constants.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Api from "../components/Api.js";
-import popupWithForm from "../components/PopupWithForm.js";
+let profileId;
 const validators = {};
 
 //создание инстанса api для запросов на сервер
@@ -28,8 +28,6 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
-
-let profileId;
 
 //установление имени и описания профиля
 api
@@ -45,17 +43,20 @@ api
   });
 
 //создание попапа подтверждения удаления карточки
-const popupDeleteConfirmation = new PopupWithForm({
+const popupDeleteConfirmation = new PopupWithConfirmationOfDelete({
   popupSelector: ".popup_confirmation",
-  handleFormSubmit: () => {
-    console.log(true);
+  handleFormSubmit: (cardId, cardTemplate) => {
+    api.handleDeleteCard(cardId);
+    cardTemplate.remove();
   },
 });
 
 //создание карточки
 function createCard(item, cardTemplate = "#card-template", handleCardClick) {
-  function handleTrashClick() {
+  function handleTrashClick(cardId, cardTemplate) {
     popupDeleteConfirmation.open();
+    popupDeleteConfirmation.setCardId(cardId);
+    popupDeleteConfirmation.setCardTemplate(cardTemplate);
   }
   const card = new Card(
     item,
