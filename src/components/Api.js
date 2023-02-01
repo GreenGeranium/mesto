@@ -4,6 +4,43 @@ export default class Api {
     this._headers = options.headers;
   }
 
+  /*  getLikes(cardId) {
+    fetch(`${this._baseUrl}/cards/likes`, {
+      headers: this._headers,
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        return Promise.reject(`Ошибка: ${response.status}`);
+      })
+      .then((data) => console.log(data));
+  }*/
+
+  addLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(`Ошибка: ${response.status}`);
+    });
+  }
+
+  removeLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(`Ошибка: ${response.status}`);
+    });
+  }
+
   addNewCard(newName, newLink) {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
@@ -21,7 +58,7 @@ export default class Api {
   }
 
   handleDeleteCard(cardId) {
-    fetch(`${this._baseUrl}/cards/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       headers: this._headers,
       method: "DELETE",
     }).then((response) => {

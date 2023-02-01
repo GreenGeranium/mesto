@@ -45,25 +45,49 @@ api
 //создание попапа подтверждения удаления карточки
 const popupDeleteConfirmation = new PopupWithConfirmationOfDelete({
   popupSelector: ".popup_confirmation",
-  handleFormSubmit: (cardId, cardTemplate) => {
-    api.handleDeleteCard(cardId);
-    cardTemplate.remove();
+  handleFormSubmit: (cardId, card) => {
+    api
+      .handleDeleteCard(cardId)
+      .then((data) => {
+        console.log(data);
+        card.remove();
+      })
+      .catch((err) => console.log(err));
+    //;
   },
 });
 
 //создание карточки
 function createCard(item, cardTemplate = "#card-template", handleCardClick) {
-  function handleTrashClick(cardId, cardTemplate) {
+  function handleTrashClick(cardId, card) {
     popupDeleteConfirmation.open();
     popupDeleteConfirmation.setCardId(cardId);
-    popupDeleteConfirmation.setCardTemplate(cardTemplate);
+    popupDeleteConfirmation.setCardTemplate(card);
   }
+
+  function handleAddingLike(cardData, likes) {
+    api.addLike(cardData._id).then((data) => {
+      likes.textContent = data.likes.length;
+      //console.log(data);
+    });
+    //api.getLikes(cardData._id);
+  }
+
+  function handleRemovingLike(cardData, likes) {
+    api.removeLike(cardData._id).then((data) => {
+      likes.textContent = data.likes.length;
+      console.log(likes.textContent);
+    });
+  }
+
   const card = new Card(
     item,
     "#card-template",
     handleCardClick,
     handleTrashClick,
-    profileId
+    profileId,
+    handleAddingLike,
+    handleRemovingLike
   );
   const cardElement = card.getView();
   return cardElement;

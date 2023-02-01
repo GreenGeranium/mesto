@@ -4,7 +4,9 @@ class Card {
     cardTemplate,
     handleCardClick,
     handleTrashClick,
-    profileId
+    profileId,
+    handleAddingLike,
+    handleRemovingLike
   ) {
     this._cardTemplate = cardTemplate;
     this._card = card;
@@ -21,6 +23,8 @@ class Card {
     this._numberOfLikes = this._newCard.querySelector(".card__likes-quantity");
     this._handleCardClick = handleCardClick;
     this._handleTrashClick = handleTrashClick;
+    this._handleAddingLike = handleAddingLike;
+    this._handleRemovingLike = handleRemovingLike;
   }
 
   //появление урны только у собственных карточек
@@ -42,22 +46,29 @@ class Card {
   //установка значения лайков карточки
   _setLikes() {
     this._numberOfLikes.textContent = this._likes;
-    //TODO попробовать this._likes.length и убрать length из конструктора
-    //TODO ПРОВЕРИТЬ верстку карточки
+    this._card.likes.forEach((cardLiker) => {
+      if (cardLiker._id === this._profileId) {
+        this._likeButton.classList.add("card__button_active");
+      }
+    });
   }
 
   //Установка значений имени и источника для картчки
   _setData() {
     this._newCard.querySelector(".card__name").textContent = this._name;
     this._cardImage.src = this._link;
-    //console.log(`<%=require('${this._link}')%>`);
-    //this._cardImage.src = `<%=require('${this._link}')%>`;
     this._cardImage.alt = this._name;
   }
 
   //Проставление лайка
   _handleLike() {
-    this._likeButton.classList.toggle("card__button_active");
+    if (this._likeButton.classList.contains("card__button_active")) {
+      this._likeButton.classList.remove("card__button_active");
+      this._handleRemovingLike(this._card, this._numberOfLikes);
+    } else {
+      this._likeButton.classList.add("card__button_active");
+      this._handleAddingLike(this._card, this._numberOfLikes);
+    }
   }
 
   //Установка слушателей
