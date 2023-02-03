@@ -4,7 +4,7 @@ import Card from "../components/Card";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import PopupWithConfirmationOfDelete from "../components/PopupWithConfirmationOfDelete.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import {
   cardContainerSelector,
@@ -43,7 +43,7 @@ api
   });
 
 //создание попапа подтверждения удаления карточки
-const popupDeleteConfirmation = new PopupWithConfirmationOfDelete({
+const popupDeleteConfirmation = new PopupWithConfirmation({
   popupSelector: ".popup_confirmation",
   handleFormSubmit: (cardId, card) => {
     api
@@ -59,24 +59,26 @@ const popupDeleteConfirmation = new PopupWithConfirmationOfDelete({
 
 //создание карточки
 function createCard(item, cardTemplate = "#card-template", handleCardClick) {
+  //обработчик клика на корзину
   function handleTrashClick(cardId, card) {
     popupDeleteConfirmation.open();
     popupDeleteConfirmation.setCardId(cardId);
     popupDeleteConfirmation.setCardTemplate(card);
   }
 
+  //обработчик добавления лайка
   function handleAddingLike(cardData, likes) {
     api.addLike(cardData._id).then((data) => {
       likes.textContent = data.likes.length;
-      //console.log(data);
+      console.log(data);
     });
-    //api.getLikes(cardData._id);
   }
 
+  //обработчик удаления лайка
   function handleRemovingLike(cardData, likes) {
     api.removeLike(cardData._id).then((data) => {
       likes.textContent = data.likes.length;
-      console.log(likes.textContent);
+      console.log(data);
     });
   }
 
@@ -182,6 +184,13 @@ btnAddSection.addEventListener("click", () => {
   popupAdd.open();
   validators["card-add"].disableSaveButton();
 });
+
+//измнение аватарки профиля
+api
+  .changeProfileAvatar(
+    "https://images.unsplash.com/photo-1675201483359-b69e67b3f326?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+  )
+  .then((data) => console.log(data));
 
 popupImage.setEventListeners();
 popupEdit.setEventListeners();

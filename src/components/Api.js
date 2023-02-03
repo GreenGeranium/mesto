@@ -4,19 +4,23 @@ export default class Api {
     this._headers = options.headers;
   }
 
-  /*  getLikes(cardId) {
-    fetch(`${this._baseUrl}/cards/likes`, {
+  //запрос на изменение аватарки
+  changeProfileAvatar(avatarLink) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       headers: this._headers,
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        return Promise.reject(`Ошибка: ${response.status}`);
-      })
-      .then((data) => console.log(data));
-  }*/
+      method: "PATCH",
+      body: JSON.stringify({
+        avatar: avatarLink,
+      }),
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(`Ошибка: ${response.status}`);
+    });
+  }
 
+  //запрос на добавление карточки
   addLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
@@ -29,6 +33,7 @@ export default class Api {
     });
   }
 
+  //запрос на удаление лайка
   removeLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
@@ -41,6 +46,7 @@ export default class Api {
     });
   }
 
+  //запрос на добавление карточки
   addNewCard(newName, newLink) {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
@@ -57,6 +63,7 @@ export default class Api {
     });
   }
 
+  //запрос на удаление карточки
   handleDeleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       headers: this._headers,
@@ -69,6 +76,7 @@ export default class Api {
     });
   }
 
+  //запрос на получение информации о профиле
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
@@ -80,6 +88,7 @@ export default class Api {
     });
   }
 
+  //запрос на изменение профиля
   changeUserInfo(newName, newAbout) {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
@@ -96,6 +105,7 @@ export default class Api {
     });
   }
 
+  //загрузка карт с сервера
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, { headers: this._headers }).then(
       (response) => {

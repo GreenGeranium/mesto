@@ -30,6 +30,7 @@
 @import url(../blocks/logo/logo.css);
 @import url(../blocks/content/content.css);
 @import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__container/profile__avatar-container.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
 @import url(../blocks/profile/__description/profile__description.css);
 @import url(../blocks/profile/__name/profile__name.css);
