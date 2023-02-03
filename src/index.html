@@ -134,6 +134,37 @@
           </form>
         </div>
       </div>
+      <div class="popup popup_avatar">
+        <div class="popup__container">
+          <button
+                  class="popup__close-button"
+                  type="button"
+                  aria-label="Закрыть попап"
+          ></button>
+          <h2 class="popup__title">Обновить аватар</h2>
+          <form
+                  method="get"
+                  name="avatar-change"
+                  class="form"
+                  novalidate
+                  id="popup_avatar"
+          >
+            <label class="form__field">
+              <input
+                      type="url"
+                      value=""
+                      class="form__input form__input_type_avatar"
+                      name="avatar-link"
+                      placeholder="Ссылка"
+                      required
+                      id="avatar-input"
+              />
+              <span class="avatar-input-error form__input-error"></span>
+            </label>
+            <button class="form__save-button" type="submit">Создать</button>
+          </form>
+        </div>
+      </div>
       <div class="popup popup_image">
         <div class="popup__container popup__container_type_image">
           <button

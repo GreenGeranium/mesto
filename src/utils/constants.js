@@ -7,6 +7,10 @@ export const profileName = document.querySelector(".profile__name");
 export const profileDescription = document.querySelector(".profile__subline");
 export const profileAvatar = document.querySelector(".profile__avatar");
 
+export const btnAvatarChange = document.querySelector(
+  ".profile__avatar-container"
+);
+
 /*export const initialCards = [
   {
     name: "Москва",

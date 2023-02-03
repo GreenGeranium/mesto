@@ -14,6 +14,7 @@ import {
   profileName,
   profileDescription,
   profileAvatar,
+  btnAvatarChange,
 } from "../utils/constants.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Api from "../components/Api.js";
@@ -159,6 +160,23 @@ const popupEdit = new PopupWithForm({
 //создание попапа с картинкой
 const popupImage = new PopupWithImage(".popup_image");
 
+//измнение аватарки профиля
+const popupAvatar = new PopupWithForm({
+  popupSelector: ".popup_avatar",
+  handleFormSubmit: (formData) => {
+    api
+      .changeProfileAvatar(formData["avatar-link"])
+      .then((data) => {
+        console.log(data);
+        profileAvatar.src = data.avatar;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {});
+  },
+});
+
 //валидация каждой формы
 function enableValidation(selectors) {
   const formList = Array.from(
@@ -185,15 +203,18 @@ btnAddSection.addEventListener("click", () => {
   validators["card-add"].disableSaveButton();
 });
 
-//измнение аватарки профиля
-api
-  .changeProfileAvatar(
-    "https://images.unsplash.com/photo-1675201483359-b69e67b3f326?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-  )
-  .then((data) => console.log(data));
+//открытие попапа с изменением аватара
+btnAvatarChange.addEventListener("click", () => {
+  popupAvatar.open();
+  validators["avatar-change"].disableSaveButton();
+});
 
 popupImage.setEventListeners();
 popupEdit.setEventListeners();
 popupAdd.setEventListeners();
+popupAvatar.setEventListeners();
 popupDeleteConfirmation.setEventListeners();
 enableValidation(validationConfiguration);
+
+//TODO ДОБАВИТЬ МЕТОД RENDER LOADING ПОПАПУ И ВЫЗЫВАТЬ ЕГО
+//TODO ДОБАВИТЬ СПИННЕР ДЛЯ АВАТАРКИ
