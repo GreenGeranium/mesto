@@ -135,6 +135,7 @@ const popupAdd = new PopupWithForm({
           popupImage.open(data.name, data.link);
         });
         cardList.addItem(card);
+        popupAdd.close();
       })
       .catch((err) => console.log(err))
       .finally(() => {
@@ -156,6 +157,7 @@ const popupEdit = new PopupWithForm({
           newProfession: formData["profile-profession"],
         });
         console.log(data);
+        popupEdit.close();
       })
       .catch((err) => console.log(err))
       .finally(() => {
@@ -177,6 +179,7 @@ const popupAvatar = new PopupWithForm({
       .then((data) => {
         console.log(data);
         profileAvatar.src = data.avatar;
+        popupAvatar.close();
       })
       .catch((err) => {
         console.log(err);
@@ -227,6 +230,4 @@ popupAvatar.setEventListeners();
 popupDeleteConfirmation.setEventListeners();
 enableValidation(validationConfiguration);
 
-//TODO ДОБАВИТЬ МЕТОД RENDER LOADING ПОПАПУ И ВЫЗЫВАТЬ ЕГО
 //TODO ДОБАВИТЬ СПИННЕР ДЛЯ АВАТАРКИ
-//TODO Проверить pixel perfect новый попап с аватаркой
