@@ -54,7 +54,6 @@ const popupDeleteConfirmation = new PopupWithConfirmation({
         card.remove();
       })
       .catch((err) => console.log(err));
-    //;
   },
 });
 
@@ -127,6 +126,7 @@ const profileInfo = new UserInfo({
 const popupAdd = new PopupWithForm({
   popupSelector: ".popup_add",
   handleFormSubmit: (formData) => {
+    popupAdd.renderLoading(true);
     api
       .addNewCard(formData["card-name"], formData["card-link"])
       .then((data) => {
@@ -136,7 +136,10 @@ const popupAdd = new PopupWithForm({
         });
         cardList.addItem(card);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        popupAdd.renderLoading(true);
+      });
   },
 });
 
@@ -144,6 +147,7 @@ const popupAdd = new PopupWithForm({
 const popupEdit = new PopupWithForm({
   popupSelector: ".popup_edit",
   handleFormSubmit: (formData) => {
+    popupEdit.renderLoading(true);
     api
       .changeUserInfo(formData["profile-name"], formData["profile-profession"])
       .then((data) => {
@@ -153,7 +157,10 @@ const popupEdit = new PopupWithForm({
         });
         console.log(data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        popupEdit.renderLoading(false);
+      });
   },
 });
 
@@ -164,6 +171,7 @@ const popupImage = new PopupWithImage(".popup_image");
 const popupAvatar = new PopupWithForm({
   popupSelector: ".popup_avatar",
   handleFormSubmit: (formData) => {
+    popupAvatar.renderLoading(true);
     api
       .changeProfileAvatar(formData["avatar-link"])
       .then((data) => {
@@ -173,7 +181,10 @@ const popupAvatar = new PopupWithForm({
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => {});
+      .finally(() => {
+        console.log(false);
+        popupAvatar.renderLoading(false);
+      });
   },
 });
 
@@ -218,3 +229,4 @@ enableValidation(validationConfiguration);
 
 //TODO ДОБАВИТЬ МЕТОД RENDER LOADING ПОПАПУ И ВЫЗЫВАТЬ ЕГО
 //TODO ДОБАВИТЬ СПИННЕР ДЛЯ АВАТАРКИ
+//TODO Проверить pixel perfect новый попап с аватаркой
