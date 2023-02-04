@@ -43,18 +43,21 @@ api
     console.log(err);
   });
 
-//создание попапа подтверждения удаления карточки
-const popupDeleteConfirmation = new PopupWithConfirmation({
-  popupSelector: ".popup_confirmation",
-  handleFormSubmit: (cardId, card) => {
-    api
-      .handleDeleteCard(cardId)
-      .then((data) => {
-        console.log(data);
-        card.remove();
-      })
-      .catch((err) => console.log(err));
+//получение информации о профиле
+const profileInfo = new UserInfo({
+  nameOfProfileSelector: ".profile__name",
+  professionOfProfileSelector: ".profile__subline",
+});
+
+//создание секции для карточек
+const cardList = new Section({
+  renderer: (item) => {
+    const card = createCard(item, "#card-template", () => {
+      popupImage.open(item.name, item.link);
+    });
+    cardList.addItem(card);
   },
+  containerSelector: cardContainerSelector,
 });
 
 //создание карточки
@@ -95,17 +98,6 @@ function createCard(item, cardTemplate = "#card-template", handleCardClick) {
   return cardElement;
 }
 
-//создание секции для карточек
-const cardList = new Section({
-  renderer: (item) => {
-    const card = createCard(item, "#card-template", () => {
-      popupImage.open(item.name, item.link);
-    });
-    cardList.addItem(card);
-  },
-  containerSelector: cardContainerSelector,
-});
-
 //получение карточек с сервера
 api
   .getInitialCards()
@@ -116,10 +108,19 @@ api
     console.log(err);
   });
 
-//получение информации о профиле
-const profileInfo = new UserInfo({
-  nameOfProfileSelector: ".profile__name",
-  professionOfProfileSelector: ".profile__subline",
+//создание попапа подтверждения удаления карточки
+const popupDeleteConfirmation = new PopupWithConfirmation({
+  popupSelector: ".popup_confirmation",
+  handleFormSubmit: (cardId, card) => {
+    api
+      .handleDeleteCard(cardId)
+      .then((data) => {
+        console.log(data);
+        popupDeleteConfirmation.close();
+        card.remove();
+      })
+      .catch((err) => console.log(err));
+  },
 });
 
 //создание попапа с добавлением карточки
@@ -169,7 +170,7 @@ const popupEdit = new PopupWithForm({
 //создание попапа с картинкой
 const popupImage = new PopupWithImage(".popup_image");
 
-//измнение аватарки профиля
+//создание попапа с изменением аватарки профиля
 const popupAvatar = new PopupWithForm({
   popupSelector: ".popup_avatar",
   handleFormSubmit: (formData) => {
@@ -185,7 +186,6 @@ const popupAvatar = new PopupWithForm({
         console.log(err);
       })
       .finally(() => {
-        console.log(false);
         popupAvatar.renderLoading(false);
       });
   },
