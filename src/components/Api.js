@@ -4,6 +4,14 @@ export default class Api {
     this._headers = options.headers;
   }
 
+  //обработка запроса
+  _getResponseData(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
   //запрос на изменение аватарки
   changeProfileAvatar(avatarLink) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
@@ -12,12 +20,7 @@ export default class Api {
       body: JSON.stringify({
         avatar: avatarLink,
       }),
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      return Promise.reject(`Ошибка: ${response.status}`);
-    });
+    }).then(this._getResponseData);
   }
 
   //запрос на добавление карточки
@@ -25,12 +28,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      return Promise.reject(`Ошибка: ${response.status}`);
-    });
+    }).then(this._getResponseData);
   }
 
   //запрос на удаление лайка
@@ -38,12 +36,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      return Promise.reject(`Ошибка: ${response.status}`);
-    });
+    }).then(this._getResponseData);
   }
 
   //запрос на добавление карточки
@@ -55,12 +48,7 @@ export default class Api {
         name: newName,
         link: newLink,
       }),
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      return Promise.reject(`Ошибка: ${response.status}`);
-    });
+    }).then(this._getResponseData);
   }
 
   //запрос на удаление карточки
@@ -68,24 +56,14 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       headers: this._headers,
       method: "DELETE",
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      return Promise.reject(`Ошибка: ${response.status}`);
-    });
+    }).then(this._getResponseData);
   }
 
   //запрос на получение информации о профиле
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      return Promise.reject(`Ошибка: ${response.status}`);
-    });
+    }).then(this._getResponseData);
   }
 
   //запрос на изменение профиля
@@ -97,23 +75,13 @@ export default class Api {
         name: newName,
         about: newAbout,
       }),
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      return Promise.reject(`Ошибка: ${response.status}`);
-    });
+    }).then(this._getResponseData);
   }
 
   //загрузка карт с сервера
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, { headers: this._headers }).then(
-      (response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        return Promise.reject(`Ошибка: ${response.status}`);
-      }
+      this._getResponseData
     );
   }
 }

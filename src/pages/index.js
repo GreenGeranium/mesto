@@ -30,14 +30,23 @@ const api = new Api({
   },
 });
 
-//установление имени и описания профиля
-api
-  .getUserInfo()
-  .then((data) => {
-    profileName.textContent = data.name;
-    profileDescription.textContent = data.about;
-    profileAvatar.src = data.avatar;
-    profileId = data._id;
+//создание секции для карточек
+const cardList = new Section({
+  renderer: (item) => {
+    const card = createCard(item, "#card-template");
+    cardList.addItem(card);
+  },
+  containerSelector: cardContainerSelector,
+});
+
+//получение карточек с сервера и установление имени и описания профиля
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cardsData]) => {
+    profileName.textContent = userData.name;
+    profileDescription.textContent = userData.about;
+    profileAvatar.src = userData.avatar;
+    profileId = userData._id;
+    cardList.renderItems(cardsData.reverse());
   })
   .catch((err) => {
     console.log(err);
@@ -49,42 +58,23 @@ const profileInfo = new UserInfo({
   professionOfProfileSelector: ".profile__subline",
 });
 
-//создание секции для карточек
-const cardList = new Section({
-  renderer: (item) => {
-    const card = createCard(item, "#card-template", () => {
-      popupImage.open(item.name, item.link);
-    });
-    cardList.addItem(card);
-  },
-  containerSelector: cardContainerSelector,
-});
+//обработчик клика на корзину
+function handleTrashClick(cardId, card) {
+  popupDeleteConfirmation.open();
+  popupDeleteConfirmation.setCardId(cardId);
+  popupDeleteConfirmation.setCardTemplate(card);
+}
+
+//обработчик клика по карточке
+function handleCardClick(item) {
+  popupImage.open(item.name, item.link);
+}
+
+//Пытался функции обработки лайка и удаление лайка вынести за функцию создания карточки,
+//но в таком случае невозможно обратиться к методам card
 
 //создание карточки
-function createCard(item, cardTemplate = "#card-template", handleCardClick) {
-  //обработчик клика на корзину
-  function handleTrashClick(cardId, card) {
-    popupDeleteConfirmation.open();
-    popupDeleteConfirmation.setCardId(cardId);
-    popupDeleteConfirmation.setCardTemplate(card);
-  }
-
-  //обработчик добавления лайка
-  function handleAddingLike(cardData, likes) {
-    api.addLike(cardData._id).then((data) => {
-      likes.textContent = data.likes.length;
-      console.log(data);
-    });
-  }
-
-  //обработчик удаления лайка
-  function handleRemovingLike(cardData, likes) {
-    api.removeLike(cardData._id).then((data) => {
-      likes.textContent = data.likes.length;
-      console.log(data);
-    });
-  }
-
+function createCard(item, cardTemplate = "#card-template") {
   const card = new Card(
     item,
     "#card-template",
@@ -94,19 +84,38 @@ function createCard(item, cardTemplate = "#card-template", handleCardClick) {
     handleAddingLike,
     handleRemovingLike
   );
+
+  //обработчик удаления лайка
+  function handleRemovingLike(cardData, likes, likeButton) {
+    api
+      .removeLike(cardData._id)
+      .then((data) => {
+        console.log(data);
+        card.setLikes(data.likes);
+        likeButton.classList.remove("card__button_active");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  //обработчик добавления лайка
+  function handleAddingLike(cardData, likes, likeButton) {
+    api
+      .addLike(cardData._id)
+      .then((data) => {
+        console.log(data);
+        likeButton.classList.add("card__button_active");
+        card.setLikes(data.likes);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   const cardElement = card.getView();
   return cardElement;
 }
-
-//получение карточек с сервера
-api
-  .getInitialCards()
-  .then((data) => {
-    cardList.renderItems(data.reverse());
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
 //создание попапа подтверждения удаления карточки
 const popupDeleteConfirmation = new PopupWithConfirmation({
@@ -140,7 +149,7 @@ const popupAdd = new PopupWithForm({
       })
       .catch((err) => console.log(err))
       .finally(() => {
-        popupAdd.renderLoading(true);
+        popupAdd.renderLoading(false);
       });
   },
 });

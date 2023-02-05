@@ -9,12 +9,12 @@ class Card {
     handleRemovingLike
   ) {
     this._cardTemplate = cardTemplate;
+    this._profileId = profileId;
     this._card = card;
     this._name = card.name;
     this._link = card.link;
-    this._likes = card.likes.length;
+    this._likes = card.likes;
     this._cardId = card._id;
-    this._profileId = profileId;
     this._ownerId = card.owner._id;
     this._newCard = this._getTemplateCard();
     this._likeButton = this._newCard.querySelector(".card__button");
@@ -43,16 +43,6 @@ class Card {
     return card;
   }
 
-  //установка значения лайков карточки
-  _setLikes() {
-    this._numberOfLikes.textContent = this._likes;
-    this._card.likes.forEach((cardLiker) => {
-      if (cardLiker._id === this._profileId) {
-        this._likeButton.classList.add("card__button_active");
-      }
-    });
-  }
-
   //Установка значений имени и источника для картчки
   _setData() {
     this._newCard.querySelector(".card__name").textContent = this._name;
@@ -60,15 +50,31 @@ class Card {
     this._cardImage.alt = this._name;
   }
 
+  //Не очень понятно, как соединить _handleLike с публичным методом setLikes, так как в таком случае setLikes будет
+  //перегруженным методом, который решает уже несколько задач и setLikes придется принимать на вход параметр,
+  //чтобы понимать надо ли ставить или удалять лайк
+
   //Проставление лайка
   _handleLike() {
     if (this._likeButton.classList.contains("card__button_active")) {
-      this._likeButton.classList.remove("card__button_active");
-      this._handleRemovingLike(this._card, this._numberOfLikes);
+      this._handleRemovingLike(
+        this._card,
+        this._numberOfLikes,
+        this._likeButton
+      );
     } else {
-      this._likeButton.classList.add("card__button_active");
-      this._handleAddingLike(this._card, this._numberOfLikes);
+      this._handleAddingLike(this._card, this._numberOfLikes, this._likeButton);
     }
+  }
+
+  //установка значения лайков карточки
+  setLikes(likesData) {
+    this._numberOfLikes.textContent = likesData.length;
+    likesData.forEach((cardLiker) => {
+      if (cardLiker._id === this._profileId) {
+        this._likeButton.classList.add("card__button_active");
+      }
+    });
   }
 
   //Установка слушателей
@@ -82,7 +88,7 @@ class Card {
     });
 
     this._cardImage.addEventListener("click", () => {
-      this._handleCardClick();
+      this._handleCardClick(this._card);
     });
   }
 
@@ -90,7 +96,7 @@ class Card {
   getView() {
     this._showTrashIcon();
     this._setData();
-    this._setLikes();
+    this.setLikes(this._likes);
     this._setEventListeners();
     return this._newCard;
   }

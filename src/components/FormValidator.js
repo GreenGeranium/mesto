@@ -15,27 +15,27 @@ class FormValidator {
   }
 
   //Появляется красная линия ошибки
-  _showInputError(inputElement, form, errorMessage) {
-    const errorElement = form.querySelector(`.${inputElement.id}-error`);
+  _showInputError(inputElement, errorMessage) {
+    const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._errorClass);
   }
 
   //Исчезает красная линия ошибки
-  _hideInputError(inputElement, form) {
-    const errorElement = form.querySelector(`.${inputElement.id}-error`);
+  _hideInputError(inputElement) {
+    const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorClass);
     errorElement.textContent = "";
   }
 
   //проверка на валидность
-  _checkInputValidity(inputElement, form) {
+  _checkInputValidity(inputElement) {
     if (inputElement.validity.valid) {
-      this._hideInputError(inputElement, form);
+      this._hideInputError(inputElement);
     } else {
-      this._showInputError(inputElement, form, inputElement.validationMessage);
+      this._showInputError(inputElement, inputElement.validationMessage);
     }
   }
 
