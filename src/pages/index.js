@@ -86,13 +86,12 @@ function createCard(item, cardTemplate = "#card-template") {
   );
 
   //обработчик удаления лайка
-  function handleRemovingLike(cardData, likes, likeButton) {
+  function handleRemovingLike(cardId) {
     api
-      .removeLike(cardData._id)
+      .removeLike(cardId)
       .then((data) => {
         console.log(data);
         card.setLikes(data.likes);
-        likeButton.classList.remove("card__button_active");
       })
       .catch((err) => {
         console.log(err);
@@ -100,12 +99,11 @@ function createCard(item, cardTemplate = "#card-template") {
   }
 
   //обработчик добавления лайка
-  function handleAddingLike(cardData, likes, likeButton) {
+  function handleAddingLike(cardId) {
     api
-      .addLike(cardData._id)
+      .addLike(cardId)
       .then((data) => {
         console.log(data);
-        likeButton.classList.add("card__button_active");
         card.setLikes(data.likes);
       })
       .catch((err) => {

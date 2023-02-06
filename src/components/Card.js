@@ -50,31 +50,25 @@ class Card {
     this._cardImage.alt = this._name;
   }
 
-  //Не очень понятно, как соединить _handleLike с публичным методом setLikes, так как в таком случае setLikes будет
-  //перегруженным методом, который решает уже несколько задач и setLikes придется принимать на вход параметр,
-  //чтобы понимать надо ли ставить или удалять лайк
+  //проверка лайкнута ли карточка данным пользователем
+  _isLiked() {
+    return this._likes.some((cardLiker) => cardLiker._id === this._profileId);
+  }
 
-  //Проставление лайка
-  _handleLike() {
-    if (this._likeButton.classList.contains("card__button_active")) {
-      this._handleRemovingLike(
-        this._card,
-        this._numberOfLikes,
-        this._likeButton
-      );
+  //отрисовка лайков карточки
+  _updateLikesView() {
+    this._numberOfLikes.textContent = this._likes.length;
+    if (this._isLiked()) {
+      this._likeButton.classList.add("card__button_active");
     } else {
-      this._handleAddingLike(this._card, this._numberOfLikes, this._likeButton);
+      this._likeButton.classList.remove("card__button_active");
     }
   }
 
-  //установка значения лайков карточки
-  setLikes(likesData) {
-    this._numberOfLikes.textContent = likesData.length;
-    likesData.forEach((cardLiker) => {
-      if (cardLiker._id === this._profileId) {
-        this._likeButton.classList.add("card__button_active");
-      }
-    });
+  //установка новых значений лайкам для последующей отрисовки
+  setLikes(likes) {
+    this._likes = likes;
+    this._updateLikesView();
   }
 
   //Установка слушателей
@@ -84,7 +78,12 @@ class Card {
     });
 
     this._likeButton.addEventListener("click", () => {
-      this._handleLike();
+      if (this._isLiked()) {
+        this._handleRemovingLike(this._cardId);
+      } else {
+        this._handleAddingLike(this._cardId);
+      }
+      this._updateLikesView();
     });
 
     this._cardImage.addEventListener("click", () => {
@@ -96,7 +95,7 @@ class Card {
   getView() {
     this._showTrashIcon();
     this._setData();
-    this.setLikes(this._likes);
+    this._updateLikesView();
     this._setEventListeners();
     return this._newCard;
   }
